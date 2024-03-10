@@ -5,8 +5,8 @@ import cartlogo from '../../assets/cart-logo.jpeg'
 function Navbar() {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg  navbar-dark bg-dark bg-body-tertiary p-0 fixed-top">
-        <div className="container-fluid bg-dark">
+      <nav className="navbar navbar-expand-lg  bg-body-tertiary p-0 fixed-top">
+        <div className="container-fluid nav-container">
            <img  className="canteen-logo"src={logo} alt="Logo"/>
            <i class="fa-solid fa-cart-shopping cart-mobile"></i>
            <button
