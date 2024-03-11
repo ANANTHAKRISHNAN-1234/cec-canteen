@@ -1,0 +1,48 @@
+*{
+  border:0px;
+}
+
+.card{
+  width: 11.5rem;
+  height:12.5rem;
+  border: 2PX solid rgba(33,37,41,41);
+  box-shadow: 2px 4px 4px 4px rgba(12 12 12 / 40%),
+              2px 4px 4px 4px rgba(12 12 12 / 40%),
+              2px 4px 4px 4px rgba(12 12 12 / 40%),
+              0px 0px 0px transparent;
+  border-radius: 4px;
+  box-sizing: border-box;
+  
+}
+.card-body{
+background-color: rgb(28, 21, 21);
+border-radius: 4px;
+box-shadow: 0px 0px 0px transparent,
+            2px 2px 2px rgb(28, 21, 21),
+            2px 2px 2px rgb(28, 21, 21),
+            2px 2px 2px rgb(28, 21, 21);
+}
+.card-img-top{
+  height:100%;
+  width:100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.scrollable-container {
+display: flex;
+overflow-x: auto;
+scrollbar-width: none; /* Hide scrollbar in Firefox */
+-ms-overflow-style: none; /* Hide scrollbar in IE */
+}
+
+.scrollable-container::-webkit-scrollbar {
+display: none; /* Hide scrollbar in Chrome, Safari, and Opera */
+}
+
+.card {
+transition: transform 0.3s ease-in-out;
+}
+
+.card-container:hover {
+transform: scale(1.1);
+}
