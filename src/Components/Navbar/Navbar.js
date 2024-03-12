@@ -2,7 +2,21 @@ import React from "react";
 import "./Navbar.css";
 import logo from '../../assets/cec-canteen-logo.jpeg'
 import cartlogo from '../../assets/cart-logo.jpeg'
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase';
+import { useNavigate } from 'react-router-dom';
 function Navbar() {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg  bg-body-tertiary p-0 fixed-top">
@@ -49,7 +63,7 @@ function Navbar() {
                 </a>
                 </li>
                 <li className="nav-item logout ">
-                <a className="nav-link text-light " href="#">
+                <a className="nav-link text-light" href="#"  onClick={handleLogout}>
                     LogOut   
                 </a>
                 </li>

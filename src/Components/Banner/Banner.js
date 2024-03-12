@@ -4,7 +4,7 @@ import carousalimg1 from '../../assets/carousal-img1.jpeg'
 import carousalimg2 from '../../assets/carousal-img2.jpeg'
 import carousalimg3 from '../../assets/carousal-img3.jpeg'
 import carousalimg4 from '../../assets/carousal-img4.jpeg'
-import banner_image from '../../assets/banner-image.jpeg'
+import banner_image from '../../assets/pizza.png.png'
 function Banner() {
   return (
     <div className="container-fluid bg-dark banner-container  text-center pt-5">
