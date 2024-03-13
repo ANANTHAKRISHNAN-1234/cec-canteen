@@ -9,14 +9,12 @@ import {
   Route,
 } from "react-router-dom";
 import Protected from './Components/Protected';
-import Signup from './Pages/Signup';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="signup" element={<Signup />} />
       <Route path="login" element={<Login />} />
       <Route path="/" element={<Protected />} >
         <Route path="/" index element={<Home />} />
