@@ -4,7 +4,7 @@
 
 body{
   margin: 0;
-  background: url(../assets/rest.jpg);
+  background: url(../assets/rest.png) rgba(0,0,0,0.5);
 background-blend-mode: multiply;
 background-position: center;
 background-size: cover;
@@ -35,9 +35,10 @@ h1{
 
 p {
 font-size: 14px;
-font-weight: 300;
+font-weight: 500;
 line-height: 20px;
 letter-spacing: 0.5px;
+text-shadow: 4px 4px 10px rgb(0, 0, 0);
 }
 
 span {
@@ -140,10 +141,9 @@ z-index: 100;
 }
 
 .overlay {
-background: #4157ff;
-background: -webkit-linear-gradient(to right, #ff2bd1d5, #4157ff);
-background: linear-gradient(to right, #ff2bf1d2, #4157ff );
-background-position: 0 0;
+background: url(../assets/noodle.jpg) rgba(0,0,0,0.2);
+background-blend-mode: multiply;
+background-size: cover;
 color: #FFFFFF;
 position: relative;
 left: -100%;
