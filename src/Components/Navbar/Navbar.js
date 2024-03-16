@@ -1,10 +1,10 @@
-import React from "react";
+import React,{useState} from "react";
 import "./Navbar.css";
 import logo from '../../assets/cec-canteen-logo.jpeg'
 import cartlogo from '../../assets/cart-logo.jpeg'
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 function Navbar() {
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -17,6 +17,7 @@ function Navbar() {
       console.error(error);
     }
   }
+   const [currentpage,setCurrentpage]=useState("home");
   return (
     <div>
       <nav className="navbar navbar-expand-lg  bg-body-tertiary p-0 fixed-top">
@@ -37,9 +38,9 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav m-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link navbar-item-color text-light active" aria-current="page" href="#">
+                <Link className="nav-link navbar-item-color text-light active" aria-current="page" to="/" >
                   Home
-                </a>
+                </Link>
                 <div className="nav-link-underline"></div>
               </li>
               <li className="nav-item">
@@ -53,9 +54,9 @@ function Navbar() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-light" href="#">
+                <Link className="nav-link text-light" to="/about" >
                   About Us
-                </a>
+                </Link>
                 </li>
                 <li className="nav-item cart-large-item">
                 <a className="nav-link text-light " href="#">
@@ -63,9 +64,9 @@ function Navbar() {
                 </a>
                 </li>
                 <li className="nav-item logout ">
-                <a className="nav-link text-light" href="#"  onClick={handleLogout}>
+                <Link className="nav-link text-light" to="/login"  >
                     LogOut   
-                </a>
+                </Link>
                 </li>
             </ul>
           </div>

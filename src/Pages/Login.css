@@ -1,0 +1,20 @@
+
+.wrapper {
+    width: 500px;
+    padding: 20px;
+    box-shadow: 5px 5px black;
+
+  }
+
+  .wrapper h2 {
+    text-align: center
+  }
+
+  .wrapper form .form-group span {
+    color: red;
+  }
+  .login-img{
+    width: 21rem;
+    height: 7rem;
+
+  }

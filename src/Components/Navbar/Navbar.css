@@ -26,8 +26,8 @@
   
   .nav-item .nav-link {
     position: relative;
-    color: white; /* Change the color as needed */
-    text-decoration: none !important;
+    color: white; 
+    text-decoration: none !important; 
   }
   
   .nav-item .nav-link:hover {
