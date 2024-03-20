@@ -33,11 +33,25 @@ const Login = () => {
       console.error(error);
     }
   };
+  const handleSubmit1 = async (e) => {
+    e.preventDefault();
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(userCredential);
+      const user = userCredential.user;
+      console.log(user);
+      localStorage.setItem('token', user.accessToken);
+      localStorage.setItem('user', JSON.stringify(user));
+      navigate("/Login");
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className="container" id="container">
       <div className="form-con signup_container">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit1}>
           <h1>Create Account</h1>
           <div class="social">
                 <ul>
@@ -57,8 +71,7 @@ const Login = () => {
 			</div>
           <span>or use your email for registration </span>
           <input type="text" placeholder="Name" />
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="email" name="username" id="username" className="form-control" placeholder="Your Email" required value={email} onChange={(e) => setEmail(e.target.value)}/>          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           <button type="submit">Sign Up</button>
         </form>
       </div>
@@ -80,10 +93,10 @@ const Login = () => {
                         </svg></a>
                         </li>
                 </ul>
-			</div>
+			    </div>
           <span>or use your account</span>
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="email" name="username" id="username" className="form-control" placeholder="Your Email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <input type="password" name="password" id="password" className="form-control" placeholder="Your Password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
           <a href="#">Forgot your password?</a>
           <button type="submit">Sign In</button>
         </form>
