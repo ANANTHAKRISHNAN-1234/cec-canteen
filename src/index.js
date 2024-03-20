@@ -11,7 +11,7 @@ import {
 import Protected from './Components/Protected';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
-
+import About from './Pages/About';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -19,10 +19,11 @@ const router = createBrowserRouter(
       <Route path="/" element={<Protected />} >
         <Route path="/" index element={<Home />} />
       </Route>
+      <Route path='/about' element={<About/>} />
     </Route>
   )
 );
-
+ 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <RouterProvider router={router} />
