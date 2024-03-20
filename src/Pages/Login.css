@@ -96,6 +96,21 @@ margin: 8px 0;
 width: 100%;
 }
 
+.inp input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  height: 40px;
+  width: 90%;
+  }
+  
+p1{
+  font-size: small;
+  font-weight: 400;
+  padding: 10px;
+}
+
 .container {
 background-color: #fff;
 border-radius: 10px;

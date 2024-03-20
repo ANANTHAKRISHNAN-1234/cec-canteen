@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [username, setUsername] = useState('')
+  const [error, setError] = useState(null)
   const navigate = useNavigate();
 
   const handleSignupClick = () => {
@@ -33,13 +35,33 @@ const Login = () => {
       console.error(error);
     }
   };
+
+  const updateDisplayName = async (username, user) => {
+    try {
+      await updateProfile(auth.currentUser, {
+        displayName: username
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const handleSubmit1 = async (e) => {
     e.preventDefault();
+    const pwd = document.getElementById("pwd");
+    const cpwd = document.getElementById("cpwd");
+    if (pwd.value.trim( ) !== cpwd.value.trim())
+    {
+      setError('Password do not match')
+      return
+    }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       console.log(userCredential);
       const user = userCredential.user;
-      console.log(user);
+      setPassword('')
+      setConfirmPassword('')
+      updateDisplayName(username, user)
       localStorage.setItem('token', user.accessToken);
       localStorage.setItem('user', JSON.stringify(user));
       navigate("/Login");
@@ -51,7 +73,7 @@ const Login = () => {
   return (
     <div className="container" id="container">
       <div className="form-con signup_container">
-        <form onSubmit={handleSubmit1}>
+        <form id='for' onSubmit={handleSubmit1}>
           <h1>Create Account</h1>
           <div class="social">
                 <ul>
@@ -70,9 +92,14 @@ const Login = () => {
                 </ul>
 			</div>
           <span>or use your email for registration </span>
-          <input type="text" placeholder="Name" />
-          <input type="email" name="username" id="username" className="form-control" placeholder="Your Email" required value={email} onChange={(e) => setEmail(e.target.value)}/>          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button type="submit">Sign Up</button>
+          <div className='inp'>
+          <input type="text" placeholder="Name" required value={username} onChange={(e) => setUsername(e.target.value)} />
+          <input type="email" name="username" id="username" className="form-control" placeholder="Your Email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <input type="password" placeholder="Password" id='pwd' required value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="password" placeholder="Confirm Password" id='cpwd' required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+          </div>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <button type="submit" onClick={handleSignupClick}>Sign Up</button>
         </form>
       </div>
       <div className="form-con signin_container">
@@ -97,7 +124,9 @@ const Login = () => {
           <span>or use your account</span>
           <input type="email" name="username" id="username" className="form-control" placeholder="Your Email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
           <input type="password" name="password" id="password" className="form-control" placeholder="Your Password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
-          <a href="#">Forgot your password?</a>
+          <p1>
+            <Link to="/forgot-password">Forgot your password?</Link>
+          </p1>
           <button type="submit">Sign In</button>
         </form>
       </div>
@@ -105,7 +134,7 @@ const Login = () => {
         <div className="overlay">
           <div className="panel overlay-left">
             <h1>Welcome Back!</h1>
-            <p>To keep connected with us please login with your personal info</p>
+            <p>To keep connected with us please login with your <strong>personal info</strong></p>
             <button className="butt" onClick={handleSigninClick}>Sign In</button>
           </div>
           <div className="panel overlay-right">

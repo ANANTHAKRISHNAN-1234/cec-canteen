@@ -10,12 +10,14 @@ import {
 } from "react-router-dom";
 import Protected from './Components/Protected';
 import Login from './Pages/Login';
+import ForgotPassword from './Pages/ForgotPassword'
 import Home from './Pages/Home';
 import About from './Pages/About';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/" element={<Protected />} >
         <Route path="/" index element={<Home />} />
       </Route>

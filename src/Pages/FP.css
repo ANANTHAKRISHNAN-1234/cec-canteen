@@ -1,0 +1,86 @@
+.forgot-password-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .forgot-password-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 50px;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .forgot-password-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .forgot-password-label {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .forgot-password-input {
+    border: 2px solid #000000;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.2rem;
+    width: 300px;
+    outline: none;
+  }
+  
+  .forgot-password-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .forgot-password-button:hover {
+    background-color: #45a049;
+  }
+  
+  .forgot-password-error {
+    color: red;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .forgot-password-link {
+    font-size: 1.2rem;
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .forgot-password-link-text {
+    color: #0065cb;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .forgot-password-link-text:hover {
+    color: #45a049;
+  }
+  
+  p{
+    font-weight: bold;
+    text-shadow: none;
+  }
