@@ -1,30 +1,29 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
-import logo from '../../assets/cec-canteen-logo.jpeg'
-import cartlogo from '../../assets/cart-logo.jpeg'
-import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase';
-import { Link, useNavigate } from 'react-router-dom';
+import logo from "../../assets/cec-canteen-logo.jpeg";
+import cartlogo from "../../assets/cart-logo.jpeg";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+import { Link, useNavigate } from "react-router-dom";
 function Navbar() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       navigate("/login");
     } catch (error) {
       console.error(error);
     }
-  }
-   const [currentpage,setCurrentpage]=useState("home");
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg  bg-body-tertiary p-0 fixed-top">
         <div className="container-fluid nav-container">
-           <img  className="canteen-logo"src={logo} alt="Logo"/>
-           <i class="fa-solid fa-cart-shopping cart-mobile"></i>
-           <button
+          <img className="canteen-logo" src={logo} alt="Logo" />
+          <i className="fa-solid fa-cart-shopping cart-mobile"></i>
+          <button
             className="navbar-toggler  "
             type="button"
             data-bs-toggle="collapse"
@@ -38,7 +37,11 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav m-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link navbar-item-color text-light active" aria-current="page" to="/" >
+                <Link
+                  className="nav-link navbar-item-color text-light active"
+                  aria-current="page"
+                  to="/"
+                >
                   Home
                 </Link>
                 <div className="nav-link-underline"></div>
@@ -48,30 +51,30 @@ function Navbar() {
                   Orders
                 </a>
               </li>
-                <li className="nav-item">
+              <li className="nav-item">
                 <a className="nav-link text-light" href="#">
                   Menu
                 </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-light" to="/about" >
+                <Link className="nav-link text-light" to="/about">
                   About Us
                 </Link>
-                </li>
-                <li className="nav-item cart-large-item">
+              </li>
+              <li className="nav-item cart-large-item">
                 <a className="nav-link text-light " href="#">
-                <i class="fa-solid fa-cart-shopping cart-large"></i>
+                  <i className="fa-solid fa-cart-shopping cart-large"></i>
                 </a>
-                </li>
-                <li className="nav-item logout ">
-                <Link className="nav-link text-light" to="/login"  >
-                    LogOut   
+              </li>
+              <li className="nav-item logout ">
+                <Link className="nav-link text-light" onClick={handleLogout}>
+                  LogOut
                 </Link>
-                </li>
+              </li>
             </ul>
           </div>
         </div>
-    </nav>
+      </nav>
     </div>
   );
 }
