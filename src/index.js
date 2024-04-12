@@ -14,6 +14,7 @@ import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
+import MenuPage from "./Components/Menu/MenuPage/MenuPage";
 import AdminLogin from "./Pages/AdminLogin";
 import AdminSignup from "./Pages/AdminSignup";
 import Dashboard from "./Pages/Dashboard";
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
       <Route path="/admin-dashboard" element={<Protected2 />}>
         <Route path="/admin-dashboard" index element={<Dashboard />} />
       </Route>
+      <Route path="/menu" element={<MenuPage />}/>
     </Route>
   )
 );
