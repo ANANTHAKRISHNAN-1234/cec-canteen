@@ -1,6 +1,6 @@
 import React from 'react';
 import './Aboutus.css';
-import  aboutpic from '../../assets/aboutpic.png'
+import  aboutpic from '../../../assets/aboutpic.png'
 export default function Aboutus() {
   return (
     <div className="container-fluid bg-dark">

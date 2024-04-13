@@ -3,12 +3,14 @@ import useMenus from "../useMenus";
 import Menu from "../Menu/Menu";
 import PageBanner from "../PageBanner/PageBanner";
 import "./MenuPage.css";
+import Navbar from "../../Navbar/Navbar";
 
 const MenuPage = () => {
    const [menus] = useMenus();
 
    return (
       <div className="menu-page">
+         <Navbar></Navbar>
          <PageBanner>
             <span>food menus</span>
          </PageBanner>

@@ -24,11 +24,6 @@ const Menu = (props) => {
                   <h5 className="name">{menu.name}</h5>
                   <p>{menu.description.slice(0, 80)}</p>
                   <h4 className="price">${menu.price}</h4>
-                  {props.children ? (
-                     <span className="link">{props.children}</span>
-                  ) : (
-                     <h4 className="price">${menu.price}</h4>
-                  )}
                </div>
             </div>
          ) : (
