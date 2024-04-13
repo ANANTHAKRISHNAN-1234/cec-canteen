@@ -21,7 +21,7 @@ const MenuPage = () => {
                      bgColor="#f1f1f1"
                      fgColor="#f9f9f9"
                   >
-                     <span>buy now</span>
+                     <span className="buy">buy now</span>
                   </Menu>
                ))}
             </div>
