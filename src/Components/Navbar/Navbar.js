@@ -52,7 +52,7 @@ function Navbar() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-light" href="#">
+                <a className="nav-link text-light" href="/menu">
                   Menu
                 </a>
               </li>

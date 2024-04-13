@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
+import AdminSidebar from "../Components/AdminSidebar";
 
-export default function Dashboard() {
+const Dashboard = () => {
   return (
-    <div className='text-light'>
-      THIS is admin dashboard
+    <div>
+      <AdminSidebar />
     </div>
-  )
-}
+  );
+};
+export default Dashboard;
