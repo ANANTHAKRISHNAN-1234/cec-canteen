@@ -3,7 +3,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   overflow: hidden;
-  background-color: burlywood;
+  background-color: #7a6f6f;
 }
 
 @media (min-width: 768px) {
