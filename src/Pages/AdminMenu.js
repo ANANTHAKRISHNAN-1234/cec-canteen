@@ -202,10 +202,10 @@ const AdminMenu = () => {
       <AdminSidebar />
       <div className="content">
         <AddFoodModal />
-        <div className="menu-items  col-md-3 mt-4 ">
+        <div className="menu-items  mt-4 ">
           {menuItems && menuItems.length > 0 ? (
             menuItems.map((menuItem) => (
-              <div key={menuItem._id} className="menu-item m-3">
+              <div key={menuItem._id} className="menu-item col-md-3 m-3">
                 <img
                   className="menu-img"
                   src={require(`../images/${menuItem.image}`)}

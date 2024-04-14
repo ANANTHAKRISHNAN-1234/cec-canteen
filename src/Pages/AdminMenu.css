@@ -3,6 +3,8 @@
 }
 .content {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .plus {
   font-weight: bold;
@@ -52,12 +54,13 @@
   background-color: rgb(31, 31, 207);
 }
 .menu-img {
-  height: 6rem;
+  height: 10rem;
   width: 100%;
   border-radius: 4px;
 }
 .menu-items {
   display: flex;
+  flex-wrap: wrap;
 }
 .menu-item {
   background-color: #f0f0f0;
@@ -87,6 +90,7 @@
 }
 .menu-item-btns button {
   border-radius: 3px;
+  margin-left: 3rem;
 }
 .menu-item-btns button:hover {
   opacity: 0.8;

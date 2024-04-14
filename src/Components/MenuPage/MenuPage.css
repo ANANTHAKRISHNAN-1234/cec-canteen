@@ -1,6 +1,6 @@
 .menu-page {
   padding: 20px;
-  background-color: black;
+  background-color: rgb(49, 47, 47);
 }
 
 @media (min-width: 768px) {

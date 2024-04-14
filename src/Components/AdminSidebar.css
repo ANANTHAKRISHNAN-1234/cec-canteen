@@ -4,6 +4,9 @@ a {
   outline: none;
   text-decoration: none;
 }
+.display-table {
+  position: sticky;
+}
 li,
 ul {
   list-style: none;

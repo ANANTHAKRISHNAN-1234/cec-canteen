@@ -18,12 +18,19 @@ const Menu = (props) => {
       {menu ? ( // Ensure menu data is available before rendering
         <div onClick={() => handleDetails(menu._id)} className="menu-box">
           <div className="img-box">
-            <img className="img-fluid" src={menu.image} alt="" />
+            <img
+              className="img-fluid"
+              src={require(`../../images/${menu.image}`)}
+              alt={menu.name}
+            />
           </div>
           <div className="info">
             <h5 className="name">{menu.name}</h5>
             <p>{menu.description.slice(0, 80)}</p>
-            <h4 className="price">${menu.price}</h4>
+            <h4 className="price">
+              {"\u20b9"}
+              {menu.price}
+            </h4>
           </div>
         </div>
       ) : (
