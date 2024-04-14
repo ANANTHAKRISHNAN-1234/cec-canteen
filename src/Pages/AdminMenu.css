@@ -1,0 +1,97 @@
+.adminmenu {
+  display: flex;
+}
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.plus {
+  font-weight: bold;
+}
+.form-label {
+  margin-left: 7rem;
+  margin-bottom: 1rem;
+}
+.form-imagelabel {
+  margin-left: 7rem;
+}
+.form-imagelabel input {
+  margin-left: 1rem;
+}
+
+.form-label input {
+  border-bottom: 1px solid black;
+  width: 16rem;
+  margin-left: 0.3rem;
+}
+.menu-heading {
+  color: rgb(19, 19, 129);
+  margin-left: 7rem;
+  margin-bottom: 1rem;
+}
+.menu-submit {
+  margin-left: 15rem !important;
+  background-color: rgb(19, 19, 129);
+  color: aliceblue;
+  border-radius: 6px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-top: 9px;
+}
+.add-menu {
+  background-color: rgb(19, 19, 129);
+  color: aliceblue;
+  margin-top: 2rem;
+  margin-left: 20rem;
+  padding: 5px;
+  border-radius: 9px;
+  width: 25rem;
+}
+.add-menu:hover {
+  background-color: rgb(31, 31, 207);
+}
+.menu-img {
+  height: 10rem;
+  width: 100%;
+  border-radius: 4px;
+}
+.menu-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+.menu-item {
+  background-color: #f0f0f0;
+  box-shadow: 16px 16px solid gray;
+  border-radius: 8px;
+}
+.menu-item div {
+  padding: 6px;
+}
+.menu-item-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item h4 {
+  color: rgb(31, 31, 207);
+}
+.menu-item-para {
+  margin-top: 0;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+.menu-item-btns {
+  display: flex;
+}
+.menu-item-btns button {
+  border-radius: 3px;
+  margin-left: 3rem;
+}
+.menu-item-btns button:hover {
+  opacity: 0.8;
+}
