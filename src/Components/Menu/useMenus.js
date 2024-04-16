@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
-import menuData from "../../assets/fakeData/menu.json";
-
+import axios from "axios";
 const useMenus = () => {
-   const [menus, setMenus] = useState([]);
+  const [menus, setMenus] = useState([]);
 
-   useEffect(() => {
-      // Set the menus state directly from the imported JSON file
-      setMenus(menuData);
-   }, []);
+  useEffect(() => {
+    const fetchMenus = async () => {
+      try {
+        const response = await axios.get("http://localhost:7000/api/menu");
+        setMenus(response.data.data);
+      } catch (error) {
+        console.error("Failed to fetch menus:", error);
+      }
+    };
 
-   return [menus];
+    fetchMenus();
+  }, []);
+  return [menus];
 };
 
 export default useMenus;

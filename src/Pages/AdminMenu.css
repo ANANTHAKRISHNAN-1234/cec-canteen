@@ -56,6 +56,7 @@
 .menu-img {
   height: 10rem;
   width: 100%;
+  object-fit: contain;
   border-radius: 4px;
 }
 .menu-items {
