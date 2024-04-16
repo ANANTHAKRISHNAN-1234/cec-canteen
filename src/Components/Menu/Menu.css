@@ -5,6 +5,12 @@
   overflow: hidden;
   background-color: rgb(78 69 69);
 }
+.buy {
+  border: 2px solid orange;
+  margin-top: 8px;
+  padding-top: 2px;
+  padding-bottom: 3px;
+}
 .img-box {
   margin-top: 0rem;
 }

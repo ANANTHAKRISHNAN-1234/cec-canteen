@@ -7,6 +7,7 @@ connectDB();
 const cors = require("cors");
 const User = require("./models/adminuser");
 const Menu = require("./models/menustruct");
+const Customer = require("./models/customer");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
@@ -109,5 +110,105 @@ app.get("/api/menu", async (req, res) => {
     res
       .status(500)
       .json({ status: "error", error: "Failed to fetch menu items" });
+  }
+});
+app.post("/api/signup", async (req, res) => {
+  console.log(req.body);
+  try {
+    await Customer.create({
+      userid: req.body.uid,
+      email: req.body.email,
+      username: req.body.username,
+    });
+    res.json({ status: "ok" });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      status: "error",
+      error: "Failed to store data to customer collection",
+    });
+  }
+});
+app.post("/api/cart", async (req, res) => {
+  const { menuId, userId } = req.body;
+  console.log("hiiiii");
+  console.log(req.body);
+  console.log("hello");
+  console.log(menuId);
+  console.log(userId);
+  try {
+    const customer = await Customer.findOneAndUpdate(
+      { userid: userId },
+      { $addToSet: { cart: menuId } },
+      { new: true }
+    );
+
+    res.json({ success: true, customer });
+  } catch (error) {
+    console.error("Error adding item to cart:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to add item to cart" });
+  }
+});
+app.get(`/api/customer/:userId`, async (req, res) => {
+  const userId = req.params.userId;
+  console.log(userId);
+  try {
+    const customer = await Customer.findOne({ userid: userId });
+    if (!customer) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ cart: customer.cart });
+  } catch (error) {
+    console.error("Error fetching cart items:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+// Route to fetch a menu item based on its ID
+app.get("/api/menu/:id", async (req, res) => {
+  console.log("helllooo");
+  const id = req.params.id;
+  console.log(id);
+  try {
+    const menuItem = await Menu.findById(id);
+    if (!menuItem) {
+      return res.status(404).json({ error: "Menu item not found" });
+    }
+    res.json(menuItem);
+  } catch (error) {
+    console.error("Error fetching menu item:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+app.delete("/api/customer/:userId/cart/:itemId", async (req, res) => {
+  try {
+    console.log("akakakakak");
+    const { userId, itemId } = req.params;
+    console.log(userId);
+    console.log(itemId);
+    const customer = await Customer.findOneAndUpdate(
+      { userid: userId },
+      { $pull: { cart: itemId } },
+      { new: true }
+    );
+    res.status(200).json(customer);
+  } catch (error) {
+    console.error("Error removing item from cart:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+app.delete("/api/customer/:userId/cart", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const customer = await Customer.findOneAndUpdate(
+      { userid: userId },
+      { $set: { cart: [] } },
+      { new: true }
+    );
+    res.status(200).json(customer);
+  } catch (error) {
+    console.error("Error removing all items from cart:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });

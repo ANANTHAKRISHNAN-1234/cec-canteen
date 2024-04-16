@@ -52,9 +52,9 @@ function Navbar() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-light" href="/menu">
+                <Link className="nav-link text-light" to="/menu">
                   Menu
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link text-light" to="/about">
@@ -62,7 +62,7 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item cart-large-item">
-                <a className="nav-link text-light " href="#">
+                <a className="nav-link text-light " href="/cart">
                   <i className="fa-solid fa-cart-shopping cart-large"></i>
                 </a>
               </li>
