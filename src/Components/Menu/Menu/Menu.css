@@ -20,7 +20,7 @@
 .info {
    padding: 20px;
    text-align: center;
-   color: azure;
+   color: rgb(48, 49, 49);
 }
 
 @media (min-width: 768px) {
@@ -39,7 +39,7 @@
    font-size: 1.25rem;
    margin-bottom: 10px;
    text-transform: capitalize;
-   color: white;
+   color: rgb(0, 0, 0);
 }
 
 @media (min-width: 768px) {

@@ -47,7 +47,7 @@ function Navbar() {
                 <div className="nav-link-underline"></div>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-light" href="#">
+                <a className="nav-link text-light" href="/order">
                   Orders
                 </a>
               </li>

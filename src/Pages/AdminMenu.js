@@ -3,6 +3,7 @@ import AdminSidebar from "../Components/AdminSidebar";
 import "./AdminMenu.css";
 import Modal from "react-modal";
 import axios from "axios";
+
 const customStyles = {
   content: {
     position: "absolute",
@@ -26,169 +27,114 @@ const customStyles = {
     zIndex: "9998",
   },
 };
+
 Modal.setAppElement("#root");
 
-const AddFoodModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
-  const [category, setCategory] = useState("");
-  const [stock, setStock] = useState(0);
-  const [image, setImage] = useState(null);
-  useEffect(() => {
-    if (!isOpen) {
-      setName("");
-      setDescription("");
-      setPrice(0);
-      setCategory("");
-      setStock(0);
-      setImage(null);
-    }
-  }, [isOpen]);
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+const EditFoodModal = ({ isOpen, closeModal, menuItem, onUpdate }) => {
+  const [name, setName] = useState(menuItem.name);
+  const [description, setDescription] = useState(menuItem.description);
+  const [price, setPrice] = useState(menuItem.price);
+  const [category, setCategory] = useState(menuItem.category);
+  const [stock, setStock] = useState(menuItem.stock);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(axios);
-      const response = await axios.post(
-        "http://localhost:7000/api/menu",
+      const response = await axios.put(
+        `http://localhost:7000/api/menu/${menuItem._id}`,
         {
           name,
           description,
           price,
           category,
           stock,
-          image,
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
         }
       );
-      const data = await response.data;
-      console.log(data);
-
-      if (data.status === "ok") {
-        console.log("data updated to database successfully");
-      }
+      const updatedMenuItem = response.data;
+      onUpdate(updatedMenuItem);
+      closeModal();
     } catch (error) {
       console.log(error);
     }
-    // Handle form submission (e.g., send data to backend)
-    // You can access the form data in the state variables (name, description, etc.)
-    closeModal();
-  };
-  const onUploadFile = (e) => {
-    console.log(e.target.files[0]);
-    setImage(e.target.files[0]);
   };
 
   return (
-    <>
-      <button className="add-menu" onClick={openModal}>
-        + Add New FoodItem
-      </button>
-      <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h2 className="menu-heading">Add New FoodItem</h2>
-          <button onClick={closeModal}>
-            <i className="fa fa-close" aria-hidden="true"></i>
-          </button>
-        </div>
-        <form onSubmit={handleFormSubmit}>
-          <label className="pb-2 form-label">
-            Name:
-            <input
-              type="text"
-              placeholder="Enter name of foodItem"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              autoFocus
-              required
-            />
-          </label>
-          <br />
-          <label className="pb-2 form-label">
-            Description:
-            <input
-              type="text"
-              value={description}
-              placeholder="Enter description"
-              onChange={(e) => setDescription(e.target.value)}
-              autoFocus
-              required
-            />
-          </label>
-          <br />
-          <label className="form-label pb-2">
-            Price:
-            <input
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(Number(e.target.value))}
-              required
-            />
-          </label>
-          <br />
-          <label className="form-label pb-2">
-            Category:
-            <input
-              type="text"
-              placeholder="Enter category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              required
-            />
-          </label>
-          <br />
-          <label className="form-label pb-2">
-            Stock:
-            <input
-              type="number"
-              value={stock}
-              onChange={(e) => setStock(Number(e.target.value))}
-              required
-            />
-          </label>
-          <br />
-          <label className=" form-imagelabel pb-2">
-            Image:
-            <input
-              type="file"
-              accept="image/*"
-              onChange={onUploadFile}
-              required
-            />
-          </label>
-          <br />
-          <button className="menu-submit ms-5" type="submit">
-            Add
-          </button>
-        </form>
-      </Modal>
-    </>
+    <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h2 className="menu-heading">Edit Food Item</h2>
+        <button onClick={closeModal}>
+          <i className="fa fa-close" aria-hidden="true"></i>
+        </button>
+      </div>
+      <form onSubmit={handleFormSubmit}>
+        <label className="pb-2 form-label">
+          Name:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            autoFocus
+            required
+          />
+        </label>
+        <br />
+        <label className="pb-2 form-label">
+          Description:
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <label className="form-label pb-2">
+          Price:
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(Number(e.target.value))}
+            required
+          />
+        </label>
+        <br />
+        <label className="form-label pb-2">
+          Category:
+          <input
+            type="text"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <label className="form-label pb-2">
+          Stock:
+          <input
+            type="number"
+            value={stock}
+            onChange={(e) => setStock(Number(e.target.value))}
+            required
+          />
+        </label>
+        <br />
+        <button className="menu-submit ms-5" type="submit">
+          Update
+        </button>
+      </form>
+    </Modal>
   );
 };
 
 const AdminMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
         const response = await axios.get("http://localhost:7000/api/menu");
-        console.log("helllllo");
-        console.log(response);
         setMenuItems(response.data.data);
       } catch (error) {
         console.error("Failed to fetch menu items:", error);
@@ -197,11 +143,28 @@ const AdminMenu = () => {
     fetchMenuItems();
   }, []);
 
+  const handleEdit = (menuItem) => {
+    setSelectedItem(menuItem);
+    setEditModalOpen(true);
+  };
+
+  const handleUpdate = (updatedMenuItem) => {
+    const updatedMenuItems = menuItems.map((item) =>
+      item._id === updatedMenuItem._id ? updatedMenuItem : item
+    );
+    setMenuItems(updatedMenuItems);
+  };
+
   return (
     <div className="adminmenu">
       <AdminSidebar />
       <div className="content">
-        <AddFoodModal />
+        <EditFoodModal
+          isOpen={editModalOpen}
+          closeModal={() => setEditModalOpen(false)}
+          menuItem={selectedItem}
+          onUpdate={handleUpdate}
+        />
         <div className="menu-items  mt-4 ">
           {menuItems && menuItems.length > 0 ? (
             menuItems.map((menuItem) => (
@@ -220,7 +183,10 @@ const AdminMenu = () => {
                   <p className="menu-item-para">Stock: {menuItem.stock}</p>
                 </div>
                 <div className="menu-item-btns text-center ">
-                  <button className="bg-success text-light p-2  pe-3 ps-3 me-3">
+                  <button
+                    className="bg-success text-light p-2  pe-3 ps-3 me-3"
+                    onClick={() => handleEdit(menuItem)}
+                  >
                     <i className="fa fa-edit " aria-hidden="true"></i>
                   </button>
                   <button className="bg-danger text-light p-2 pe-3 ps-3">
