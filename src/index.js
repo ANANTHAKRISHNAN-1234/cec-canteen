@@ -21,7 +21,6 @@ import Dashboard from "./Pages/Dashboard";
 import AdminMenu from "./Pages/AdminMenu";
 import Protected2 from "./Components/Protected2";
 import Anonymous2 from "./Components/AnonymousRoute2";
-import MenuPage from "./Components/MenuPage/MenuPage";
 import CartPage from "./Pages/CartPage";
 const router = createBrowserRouter(
   createRoutesFromElements(
