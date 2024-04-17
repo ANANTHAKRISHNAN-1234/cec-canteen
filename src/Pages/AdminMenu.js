@@ -30,106 +30,83 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const EditFoodModal = ({ isOpen, closeModal, menuItem, onUpdate }) => {
-  const [name, setName] = useState(menuItem.name);
-  const [description, setDescription] = useState(menuItem.description);
-  const [price, setPrice] = useState(menuItem.price);
-  const [category, setCategory] = useState(menuItem.category);
-  const [stock, setStock] = useState(menuItem.stock);
+const AddFoodModal = ({ onSave }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [category, setCategory] = useState("");
+  const [stock, setStock] = useState(0);
+  const [image, setImage] = useState(null);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(
-        `http://localhost:7000/api/menu/${menuItem._id}`,
-        {
-          name,
-          description,
-          price,
-          category,
-          stock,
-        }
-      );
-      const updatedMenuItem = response.data;
-      onUpdate(updatedMenuItem);
-      closeModal();
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("stock", stock);
+      formData.append("image", image);
+
+      const response = await axios.post("http://localhost:7000/api/menu", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      
+      if (response.data.status === "ok") {
+        console.log("Data updated to database successfully");
+        onSave();
+      }
     } catch (error) {
       console.log(error);
     }
+    closeModal();
   };
 
+  const onUploadFile = (e) => setImage(e.target.files[0]);
+
   return (
-    <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h2 className="menu-heading">Edit Food Item</h2>
-        <button onClick={closeModal}>
-          <i className="fa fa-close" aria-hidden="true"></i>
-        </button>
-      </div>
-      <form onSubmit={handleFormSubmit}>
-        <label className="pb-2 form-label">
-          Name:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            autoFocus
-            required
-          />
-        </label>
-        <br />
-        <label className="pb-2 form-label">
-          Description:
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label className="form-label pb-2">
-          Price:
-          <input
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(Number(e.target.value))}
-            required
-          />
-        </label>
-        <br />
-        <label className="form-label pb-2">
-          Category:
-          <input
-            type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label className="form-label pb-2">
-          Stock:
-          <input
-            type="number"
-            value={stock}
-            onChange={(e) => setStock(Number(e.target.value))}
-            required
-          />
-        </label>
-        <br />
-        <button className="menu-submit ms-5" type="submit">
-          Update
-        </button>
-      </form>
-    </Modal>
+    <>
+      <button className="add-menu" onClick={openModal}>+ Add New FoodItem</button>
+      <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h2 className="menu-heading">Add New FoodItem</h2>
+          <button onClick={closeModal}><i className="fa fa-close" aria-hidden="true"></i></button>
+        </div>
+        <form onSubmit={handleFormSubmit}>
+          <label className="pb-2 form-label">Name:
+            <input type="text" placeholder="Enter name of foodItem" value={name} onChange={(e) => setName(e.target.value)} autoFocus required />
+          </label><br />
+          <label className="pb-2 form-label">Description:
+            <input type="text" value={description} placeholder="Enter description" onChange={(e) => setDescription(e.target.value)} required />
+          </label><br />
+          <label className="form-label pb-2">Price:
+            <input type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} required />
+          </label><br />
+          <label className="form-label pb-2">Category:
+            <input type="text" placeholder="Enter category" value={category} onChange={(e) => setCategory(e.target.value)} required />
+          </label><br />
+          <label className="form-label pb-2">Stock:
+            <input type="number" value={stock} onChange={(e) => setStock(Number(e.target.value))} required />
+          </label><br />
+          <label className="form-imagelabel pb-2">Image:
+            <input type="file" accept="image/*" onChange={onUploadFile} required />
+          </label><br />
+          <button className="menu-submit ms-5" type="submit">Add</button>
+        </form>
+      </Modal>
+    </>
   );
 };
 
 const AdminMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editingItemId, setEditingItemId] = useState(null);
+  const [editedItem, setEditedItem] = useState({});
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -143,55 +120,79 @@ const AdminMenu = () => {
     fetchMenuItems();
   }, []);
 
-  const handleEdit = (menuItem) => {
-    setSelectedItem(menuItem);
-    setEditModalOpen(true);
+  const handleEdit = (itemId) => setEditingItemId(itemId);
+
+  const handleSave = async (editedData) => {
+    try {
+      const response = await axios.put(`http://localhost:7000/api/menu/${editedData._id}`, editedData);
+      if (response.data.status === "ok") {
+        console.log("Menu item updated successfully");
+        const updatedMenuItems = menuItems.map((item) => (item._id === editedData._id ? editedData : item));
+        setMenuItems(updatedMenuItems);
+        setEditingItemId(null);
+        setEditedItem({});
+      }
+    } catch (error) {
+      console.error("Failed to update menu item:", error);
+    }
   };
 
-  const handleUpdate = (updatedMenuItem) => {
-    const updatedMenuItems = menuItems.map((item) =>
-      item._id === updatedMenuItem._id ? updatedMenuItem : item
-    );
-    setMenuItems(updatedMenuItems);
+  const handleChange = (key, value) => setEditedItem({ ...editedItem, [key]: value });
+
+  const handleSaveChanges = (item) => handleSave(item);
+
+  const handleDelete = async (itemId) => {
+    try {
+      const response = await axios.delete(`http://localhost:7000/api/menu/${itemId}`);
+      if (response.data.status === "ok") {
+        console.log("Menu item deleted successfully");
+        const updatedMenuItems = menuItems.filter((item) => item._id !== itemId);
+        setMenuItems(updatedMenuItems);
+      }
+    } catch (error) {
+      console.error("Failed to delete menu item:", error);
+    }
   };
 
   return (
     <div className="adminmenu">
       <AdminSidebar />
       <div className="content">
-        <EditFoodModal
-          isOpen={editModalOpen}
-          closeModal={() => setEditModalOpen(false)}
-          menuItem={selectedItem}
-          onUpdate={handleUpdate}
-        />
-        <div className="menu-items  mt-4 ">
+        <AddFoodModal onSave={() => {}} />
+        <div className="menu-items mt-4">
           {menuItems && menuItems.length > 0 ? (
             menuItems.map((menuItem) => (
               <div key={menuItem._id} className="menu-item col-md-3 m-3">
-                <img
-                  className="menu-img"
-                  src={require(`../images/${menuItem.image}`)}
-                  alt={menuItem.name}
-                />
-                <div className="menu-item-content">
-                  <h4 className="text-center">{menuItem.name}</h4>
-                  <p className="menu-item-para">
-                    Price: {"\u20b9"}
-                    {menuItem.price}
-                  </p>
-                  <p className="menu-item-para">Stock: {menuItem.stock}</p>
-                </div>
-                <div className="menu-item-btns text-center ">
-                  <button
-                    className="bg-success text-light p-2  pe-3 ps-3 me-3"
-                    onClick={() => handleEdit(menuItem)}
-                  >
-                    <i className="fa fa-edit " aria-hidden="true"></i>
-                  </button>
-                  <button className="bg-danger text-light p-2 pe-3 ps-3">
-                    <i className="fa fa-trash" aria-hidden="true"></i>
-                  </button>
+                {editingItemId === menuItem._id ? (
+                  <div>
+                    <input type="text" value={editedItem.name || menuItem.name} onChange={(e) => handleChange("name", e.target.value)} />
+                    <input type="text" value={editedItem.description || menuItem.description} onChange={(e) => handleChange("description", e.target.value)} />
+                    <input type="number" value={editedItem.price || menuItem.price} onChange={(e) => handleChange("price", Number(e.target.value))} />
+                    <input type="text" value={editedItem.category || menuItem.category} onChange={(e) => handleChange("category", e.target.value)} />
+                    <input type="number" value={editedItem.stock || menuItem.stock} onChange={(e) => handleChange("stock", Number(e.target.value))} />
+                  </div>
+                ) : (
+                  <div>
+                    <p>Name: {menuItem.name}</p>
+                    <p>Description: {menuItem.description}</p>
+                    <p>Price: {menuItem.price}</p>
+                    <p>Category: {menuItem.category}</p>
+                    <p>Stock: {menuItem.stock}</p>
+                    <img src={`http://localhost:7000/${menuItem.image}`} alt={menuItem.name} />
+                  </div>
+                )}
+                <div className="menu-item-btns text-center">
+                  {editingItemId === menuItem._id ? (
+                    <>
+                      <button className="bg-success text-light p-2 pe-3 ps-3 me-3" onClick={() => handleSaveChanges(menuItem)}>Save</button>
+                      <button className="bg-danger text-light p-2 pe-3 ps-3" onClick={() => setEditingItemId(null)}>Cancel</button>
+                    </>
+                  ) : (
+                    <>
+                      <button className="bg-success text-light p-2 pe-3 ps-3 me-3" onClick={() => handleEdit(menuItem._id)}><i className="fa fa-edit" aria-hidden="true"></i></button>
+                      <button className="bg-danger text-light p-2 pe-3 ps-3" onClick={() => handleDelete(menuItem._id)}><i className="fa fa-trash" aria-hidden="true"></i></button>
+                    </>
+                  )}
                 </div>
               </div>
             ))
