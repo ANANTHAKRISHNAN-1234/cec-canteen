@@ -1,0 +1,41 @@
+/* CSS for OrderPage component */
+.order-container {
+    max-width: 100%;
+    margin-top: 80px;
+    padding: 20px;
+  }
+  
+  .order-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .order-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .order-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .order-item h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  
+  .order-item p {
+    margin: 5px 0;
+  }
+  
+  .order-item .order-status {
+    font-weight: bold;
+  }
+  
+  .order-item .order-date {
+    color: #888;
+  }
+  

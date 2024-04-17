@@ -14,14 +14,15 @@ import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
+import MenuPage from "./Components/Menu/MenuPage/MenuPage";
 import AdminLogin from "./Pages/AdminLogin";
 import AdminSignup from "./Pages/AdminSignup";
 import Dashboard from "./Pages/Dashboard";
 import AdminMenu from "./Pages/AdminMenu";
 import Protected2 from "./Components/Protected2";
 import Anonymous2 from "./Components/AnonymousRoute2";
-import MenuPage from "./Components/MenuPage/MenuPage";
 import CartPage from "./Pages/CartPage";
+import Order from "./Components/Orders/Order";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -43,6 +44,7 @@ const router = createBrowserRouter(
       <Route path="/admin-menu" element={<AdminMenu />} />
       <Route path="/menu" element={<MenuPage />} />
       <Route path="/cart" element={<CartPage />} />
+      <Route path="/order" element={<Order />} />
     </Route>
   )
 );

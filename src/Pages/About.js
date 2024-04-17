@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../Components/Navbar/Navbar'
-import Aboutus from '../Components/Aboutus/Aboutus'
-import AboutusFeature from '../Components/AboutusFeature/AboutusFeature'
+import Aboutus from '../Components/About/Aboutus/Aboutus'
+import AboutusFeature from '../Components/About/AboutusFeature/AboutusFeature'
 export default function About() {
   return (
     <div>

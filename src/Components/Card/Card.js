@@ -4,7 +4,6 @@ import carousalimg1 from "../../assets/carousal-img1.jpeg";
 import carousalimg2 from "../../assets/carousal-img2.jpeg";
 import carousalimg3 from "../../assets/carousal-img3.jpeg";
 import carousalimg4 from "../../assets/carousal-img4.jpeg";
-import banner_image from "../../assets/banner-image.png";
 import card_img1 from "../../assets/bowl-of-ice-cream-with-chocolate.jpg";
 import card_img2 from "../../assets/coffee-crema.webp";
 import card_img3 from "../../assets/pink-macarons.jpg";
