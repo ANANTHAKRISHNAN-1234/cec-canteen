@@ -73,9 +73,12 @@ const Login = () => {
             value="Login"
           />
         </div>
+        <div className="acc">
         <p className="mt-2">
           Don't have an account? <Link to="/signup">Register</Link>.
         </p>
+        <p className="mt-2"><Link to="/adminlogin">AdminLogin</Link></p>
+        </div>
       </form>
     </section>
   );

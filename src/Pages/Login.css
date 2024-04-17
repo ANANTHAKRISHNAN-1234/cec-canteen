@@ -18,3 +18,9 @@
     height: 7rem;
 
   }
+
+  .acc{
+    display: flex;
+    justify-content: space-between;
+    
+  }

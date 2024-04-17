@@ -40,7 +40,9 @@ const router = createBrowserRouter(
       <Route path="/admin-dashboard" element={<Protected2 />}>
         <Route path="/admin-dashboard" index element={<Dashboard />} />
       </Route>
+      <Route path="/admin-menu" element={<Protected2 />}>
       <Route path="/admin-menu" element={<AdminMenu />} />
+      </Route>
       <Route path="/menu" element={<MenuPage />} />
       <Route path="/cart" element={<CartPage />} />
     </Route>

@@ -76,9 +76,12 @@ export default function AdminLogin() {
               value="Login"
             />
           </div>
-          <p className="mt-2">
-            Don't have an account? <Link to="/adminsignup">Register</Link>.
-          </p>
+          <div className="acc">
+        <p className="mt-2">
+          Don't have an account? <Link to="/signup">Register</Link>.
+        </p>
+        <p className="mt-2"><Link to="/login">Login</Link></p>
+        </div>
         </form>
       </section>
     </div>

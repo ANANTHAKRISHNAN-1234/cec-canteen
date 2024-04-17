@@ -1,6 +1,13 @@
 import React from "react";
 import "./AdminSidebar.css";
+import { useNavigate } from "react-router-dom";
+
 const AdminSidebar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("admintoken");
+    navigate("/adminlogin");
+  }
   return (
     <div>
       <div className="container-fluid display-table">
@@ -50,9 +57,9 @@ const AdminSidebar = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#">
-                    <i className="fa fa-cog" aria-hidden="true"></i>
-                    <span className="hidden-xs hidden-sm">Setting</span>
+                  <a href="/adminlogin" onClick={handleLogout}>
+                    <i className="fa fa-sign-out" aria-hidden="true"></i>
+                    <span className="hidden-xs hidden-sm" >Logout</span>
                   </a>
                 </li>
               </ul>
