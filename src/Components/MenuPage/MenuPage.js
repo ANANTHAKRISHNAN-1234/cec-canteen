@@ -22,9 +22,7 @@ const MenuPage = () => {
               key={menu._id}
               bgColor="#f1f1f1"
               fgColor="#f9f9f9"
-            >
-              <span className="buy">buy now</span>
-            </Menu>
+            ></Menu>
           ))}
         </div>
       </div>

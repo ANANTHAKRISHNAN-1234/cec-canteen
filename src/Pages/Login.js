@@ -37,7 +37,7 @@ const Login = () => {
       <p className="text-center">Please fill this form to create an account.</p>
       <form action="" method="POST" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label for="username">Username</label>
+          <label for="username">Email</label>
           <input
             type="email"
             name="username"

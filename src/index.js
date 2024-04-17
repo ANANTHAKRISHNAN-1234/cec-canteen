@@ -21,6 +21,7 @@ import Dashboard from "./Pages/Dashboard";
 import AdminMenu from "./Pages/AdminMenu";
 import Protected2 from "./Components/Protected2";
 import Anonymous2 from "./Components/AnonymousRoute2";
+import CartPage from "./Pages/CartPage";
 import Order from "./Components/Orders/Order";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/admin-menu" element={<AdminMenu />} />
       <Route path="/menu" element={<MenuPage />} />
+      <Route path="/cart" element={<CartPage />} />
       <Route path="/order" element={<Order />} />
     </Route>
   )

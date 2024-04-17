@@ -1,5 +1,6 @@
 .img-box img{
     height: 25rem !important;
+    width: auto;
     box-shadow: 5px 5px  black;
    border-radius: 9px;
    align-items: center;
@@ -10,25 +11,27 @@
     display: flex;
     box-sizing: border-box;
     margin-top: 3rem;
-    
 }
+
 @media(min-width:768px) and (max-width:992px){
     .img-pic{
          width:23rem;
          margin-top: 5rem;
+        
     }
 }
 @media (min-width:561px)and(max-width:767px){
     .img-pic{
         width:18rem;
-        height: 18rem !important;
-        margin-left: 5rem;
+        height: auto!important;
+        
     }
 }
 @media (max-width:560px){
       .img-pic{
-        margin-left: 2rem;
+        
         width:15rem;
         height: 15rem !important;
+
       }
 }
