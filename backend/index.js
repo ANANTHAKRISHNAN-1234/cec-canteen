@@ -1,16 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+require("dotenv").config();
 const PORT = process.env.PORT || 7000;
 const connectDB = require("./db");
 connectDB();
 const cors = require("cors");
+const crypto = require("crypto");
 const User = require("./models/adminuser");
 const Menu = require("./models/menustruct");
 const Customer = require("./models/customer");
+const Order = require("./models/orders");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
+const { toBeDisabled } = require("@testing-library/jest-dom/matchers");
+const Razorpay = require("razorpay");
 
 app.use(cors());
 app.use(express.json());
@@ -211,4 +216,133 @@ app.delete("/api/customer/:userId/cart", async (req, res) => {
     console.error("Error removing all items from cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
+});
+// POST /api/orders
+app.post("/api/orders", async (req, res) => {
+  const { itemId, name, quantity, price, userId } = req.body;
+
+  try {
+    // Find the menu item by itemId
+    const menuItem = await Menu.findById(itemId);
+    if (!menuItem) {
+      return res.status(404).json({ error: "Menu item not found" });
+    }
+
+    // Check if the quantity is greater than the available stock
+    if (quantity > menuItem.stock) {
+      return res.status(400).json({ error: "Insufficient stock" });
+    }
+
+    // Calculate the new stock quantity after subtracting the order quantity
+    const newStock = menuItem.stock - quantity;
+    if (newStock < 0) {
+      return res.status(400).json({ error: "Not enough stock available" });
+    }
+
+    // Subtract the quantity from the stock
+    menuItem.stock = newStock;
+    await menuItem.save();
+
+    // Create a new order
+    const newOrder = new Order({
+      userId,
+      name: [name],
+      purchasedItems: [itemId],
+      quantity: [quantity],
+      price: price,
+    });
+
+    // Save the new order
+    const savedOrder = await newOrder.save();
+
+    // Respond with the saved order, including the automatically generated _id
+    res.json(savedOrder);
+  } catch (error) {
+    console.error("Error creating order:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+app.post("/api/orderall", async (req, res) => {
+  const { userId, quantityArray, nameArray, idArray, totalPrice } = req.body;
+  try {
+    console.log("hellllllllllllo");
+    console.log(nameArray);
+    console.log(totalPrice);
+    idArray.map(async (itemid, index) => {
+      const menuItem = await Menu.findById(itemid);
+      if (!menuItem) {
+        return res.status(404).json({ error: "Menu item not found" });
+      }
+
+      // Check if the quantity is greater than the available stock
+      if (quantityArray[index] > menuItem.stock) {
+        return res.status(400).json({ error: "Insufficient stock" });
+      }
+      const newStock = menuItem.stock - quantityArray[index];
+      if (newStock < 0) {
+        return res.status(400).json({ error: "Not enough stock available" });
+      }
+
+      // Subtract the quantity from the stock
+      menuItem.stock = newStock;
+      await menuItem.save();
+    });
+    const newOrder = new Order({
+      userId,
+      name: nameArray,
+      purchasedItems: idArray,
+      quantity: quantityArray,
+      price: totalPrice,
+    });
+
+    // Save the new order
+    const savedOrder = await newOrder.save();
+
+    // Respond with the saved order, including the automatically generated _id
+    res.json(savedOrder);
+  } catch (error) {
+    console.error("Error creating order:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+app.post("/order", async (req, res) => {
+  try {
+    console.log(process.env.Razorpay_KEY_ID);
+    console.log(process.env.Razorpay_SECRET);
+    const razorpay = new Razorpay({
+      key_id: process.env.Razorpay_KEY_ID,
+      key_secret: process.env.Razorpay_SECRET,
+    });
+    console.log("hellll");
+    const options = req.body;
+    console.log(options);
+    console.log("hiiihi");
+    const order = await razorpay.orders.create(options);
+    console.log("doneee");
+    if (!order) {
+      return res.status(500).send("Error");
+    }
+    res.json(order);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error");
+  }
+});
+app.post("/order/validate", async (req, res) => {
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+    req.body;
+
+  const sha = crypto.createHmac("sha256", process.env.RAZORPAY_SECRET);
+  //order_id + "|" + razorpay_payment_id
+  sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
+  const digest = sha.digest("hex");
+  if (digest !== razorpay_signature) {
+    return res.status(400).json({ msg: "Transaction is not legit!" });
+  }
+
+  res.json({
+    msg: "success",
+    orderId: razorpay_order_id,
+    paymentId: razorpay_payment_id,
+  });
 });

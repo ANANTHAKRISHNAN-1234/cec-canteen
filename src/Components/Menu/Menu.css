@@ -11,6 +11,10 @@
   padding-top: 2px;
   padding-bottom: 3px;
 }
+.buy:hover {
+  background-color: orange;
+  color: aliceblue;
+}
 .img-box {
   margin-top: 0rem;
 }
