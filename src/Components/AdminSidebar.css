@@ -191,6 +191,12 @@ ul {
 }
 
 #navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background: #0e1a35;
   padding: 0;
 }
 
@@ -700,5 +706,44 @@ header {
     max-width: 130px;
     padding: 16px 0 17px;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #navigation {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #0e1a35;
+    z-index: 999;
+  }
+
+  #navigation.navi a {
+    display: block;
+    padding: 15px;
+    border-top: 1px solid #1a263e;
+    border-bottom: none;
+  }
+
+  #navigation.navi i {
+    margin-right: 0;
+  }
+
+  #navigation.navi a:hover,
+  #navigation.navi.active a {
+    background: #122143 none repeat scroll 0 0;
+    border-left: none;
+    display: block;
+    padding-left: 15px;
+  }
+
+ .navbar-header {
+    display: block;
+  }
+
+ .navbar-toggle {
+    display: block;
+    margin-right: 0;
   }
 }
