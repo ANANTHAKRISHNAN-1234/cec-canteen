@@ -61,6 +61,7 @@ const AddFoodModal = ({ onSave }) => {
         console.log("Data updated to database successfully");
         onSave();
       }
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -123,22 +124,24 @@ const AdminMenu = () => {
   const handleEdit = (itemId) => setEditingItemId(itemId);
 
   const handleSave = async (editedData) => {
+    console.log("handleSave function called with data:", editedData);
     try {
+      console.log("Sending PUT request with data:", editedData);
       const response = await axios.put(`http://localhost:7000/api/menu/${editedData._id}`, editedData);
+      console.log("Received response:", response.data);
       if (response.data.status === "ok") {
         console.log("Menu item updated successfully");
-        const updatedMenuItems = menuItems.map((item) => (item._id === editedData._id ? editedData : item));
+        const updatedMenuItems = menuItems.map(item => item._id === editedData._id? editedData : item);
         setMenuItems(updatedMenuItems);
-        setEditingItemId(null);
-        setEditedItem({});
-      }
+    }
+      setEditingItemId(null);
+      setEditedItem({});
     } catch (error) {
       console.error("Failed to update menu item:", error);
     }
   };
 
   const handleChange = (key, value) => setEditedItem({ ...editedItem, [key]: value });
-
   const handleSaveChanges = (item) => handleSave(item);
 
   const handleDelete = async (itemId) => {
@@ -149,6 +152,7 @@ const AdminMenu = () => {
         const updatedMenuItems = menuItems.filter((item) => item._id !== itemId);
         setMenuItems(updatedMenuItems);
       }
+      window.location.reload();
     } catch (error) {
       console.error("Failed to delete menu item:", error);
     }
@@ -165,6 +169,7 @@ const AdminMenu = () => {
               <div key={menuItem._id} className="menu-item col-md-3 m-3">
                 {editingItemId === menuItem._id ? (
                   <div>
+                    <input type="file" accept="image/*" onChange={(e) => handleChange("image", e.target.files[0])} />
                     <input type="text" value={editedItem.name || menuItem.name} onChange={(e) => handleChange("name", e.target.value)} />
                     <input type="text" value={editedItem.description || menuItem.description} onChange={(e) => handleChange("description", e.target.value)} />
                     <input type="number" value={editedItem.price || menuItem.price} onChange={(e) => handleChange("price", Number(e.target.value))} />
@@ -173,12 +178,12 @@ const AdminMenu = () => {
                   </div>
                 ) : (
                   <div>
+                    <img src={`http://localhost:7000/${menuItem.image}`} alt={menuItem.name} />
                     <p>Name: {menuItem.name}</p>
                     <p>Description: {menuItem.description}</p>
                     <p>Price: {menuItem.price}</p>
                     <p>Category: {menuItem.category}</p>
                     <p>Stock: {menuItem.stock}</p>
-                    <img src={`http://localhost:7000/${menuItem.image}`} alt={menuItem.name} />
                   </div>
                 )}
                 <div className="menu-item-btns text-center">

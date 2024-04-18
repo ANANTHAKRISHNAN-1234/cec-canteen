@@ -212,3 +212,44 @@ app.delete("/api/customer/:userId/cart", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+app.put("/api/menu/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const updatedMenuItem = await Menu.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          name: req.body.name,
+          description: req.body.description,
+          price: req.body.price,
+          category: req.body.category,
+          stock: req.body.stock,
+          image: req.body.image,
+        },
+      },
+      { new: true }
+    );
+    if (!updatedMenuItem) {
+      return res.status(404).json({ error: "Menu item not found" });
+    }
+    res.json(updatedMenuItem);
+  } catch (error) {
+    console.error("Error updating menu item:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.delete("/api/menu/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const deletedMenuItem = await Menu.findByIdAndDelete(id);
+    if (!deletedMenuItem) {
+      return res.status(404).json({ error: "Menu item not found" });
+    }
+    res.json(deletedMenuItem);
+  } catch (error) {
+    console.error("Error deleting menu item:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
