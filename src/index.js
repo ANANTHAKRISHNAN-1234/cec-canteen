@@ -22,6 +22,8 @@ import AdminMenu from "./Pages/AdminMenu";
 import Protected2 from "./Components/Protected2";
 import Anonymous2 from "./Components/AnonymousRoute2";
 import CartPage from "./Pages/CartPage";
+import AdminOrder from "./Pages/AdminOrder";
+import Orders from "./Pages/Order";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -32,6 +34,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Protected />}>
         <Route path="/" index element={<Home />} />
       </Route>
+      <Route path="/orders" element={<Orders />} />
       <Route path="/about" element={<About />} />
       <Route path="/adminsignup" element={<AdminSignup />} />
       <Route path="/adminlogin" element={<Anonymous2 />}>
@@ -42,6 +45,9 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/admin-menu" element={<Protected2 />}>
       <Route path="/admin-menu" element={<AdminMenu />} />
+      </Route>
+      <Route path="/admin-order" element={<Protected2 />}>
+      <Route path="/admin-order" element={<AdminOrder />} />
       </Route>
       <Route path="/menu" element={<MenuPage />} />
       <Route path="/cart" element={<CartPage />} />

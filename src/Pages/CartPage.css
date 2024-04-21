@@ -8,6 +8,10 @@
   padding: 2rem;
   align-items: center;
   justify-content: center;
+  background-color: black;
+  position: sticky;
+  width: 100%;
+  opacity: 0.7;
 }
 .classbody-heading h2 {
   color: goldenrod;
@@ -42,4 +46,20 @@
 .imgcart-box img {
   width: 8rem;
   height: 5rem;
+}
+.cart-end {
+  display: flex;
+  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+.cart-end h4 {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 17rem;
+}
+.cart-end button {
+  padding: 7px;
+  border-radius: 4px;
+  font-size: 20px;
+  margin-left: 20rem;
 }

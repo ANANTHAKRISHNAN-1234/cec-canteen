@@ -33,7 +33,7 @@ const AdminSidebar = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="/admin-order">
                     <i className="fa fa-tasks" aria-hidden="true"></i>
                     <span className="hidden-xs hidden-sm">Orders</span>
                   </a>
