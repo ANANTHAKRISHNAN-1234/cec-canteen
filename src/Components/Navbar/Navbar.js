@@ -1,7 +1,5 @@
-import React, { useState } from "react";
 import "./Navbar.css";
 import logo from "../../assets/cec-canteen-logo.jpeg";
-import cartlogo from "../../assets/cart-logo.jpeg";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";

@@ -1,0 +1,118 @@
+/* Users.css */
+
+.users {
+  padding: 20px;
+}
+
+.user-list {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+  counter-reset: list-item-counter;
+}
+
+.user-list li {
+  list-style-type: none;
+}
+
+.user-list li::before {
+  content: counter(list-item-counter);
+  counter-increment: list-item-counter;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #4caf50;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.user-list li:hover::before {
+  transform: scale(1.2);
+}
+
+.user-item {
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-item h4 {
+  margin: 0;
+  font-size: 22px;
+  color: #333333;
+  text-transform: capitalize;
+}
+
+.user-item p {
+  margin: 5px 0 0 0;
+  font-size: 16px;
+  color: #666666;
+}
+
+.vieworder, .hideorder {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.vieworder:hover, .hideorder:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.user-orders {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-item {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f3f3f3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-item h5 {
+  margin: 0;
+  font-size: 18px;
+  color: #333333;
+}
+
+.order-item p {
+  margin: 5px 0 0 0;
+  font-size: 16px;
+  color: #666666;
+}
+
+@media only screen and (max-width: 768px) {
+  .user-item {
+    padding: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .vieworder, .hideorder {
+    margin-top: 10px;
+    align-self: flex-end;
+  }
+}

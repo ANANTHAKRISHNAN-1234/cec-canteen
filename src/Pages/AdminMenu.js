@@ -127,7 +127,7 @@ const AdminMenu = () => {
     console.log("handleSave function called with data:", editedData);
     try {
       console.log("Sending PUT request with data:", editedData);
-      const response = await axios.put(`http://localhost:7000/api/menu/${editedData._id}`, editedData);
+      const response = await axios.put(`http://localhost:7000/api/menu/edit/${editedData._id}`, editedData);
       console.log("Received response:", response.data);
       if (response.data.status === "ok") {
         console.log("Menu item updated successfully");

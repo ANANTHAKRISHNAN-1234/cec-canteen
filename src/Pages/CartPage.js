@@ -81,7 +81,7 @@ const CartPage = () => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const userId = user.uid;
-      const response = await axios.post(`http://localhost:7000/api/orders`, {
+      await axios.post(`http://localhost:7000/api/orders`, {
         itemId: item._id,
         name: item.name,
         quantity: quantityArray[index],
@@ -103,7 +103,7 @@ const CartPage = () => {
 
       const order = await res.json();
 
-      var options = {
+      let options = {
         key: "rzp_test_i3MlNZjHTupCbP",
         amount,
         currency,
@@ -115,14 +115,13 @@ const CartPage = () => {
           const body = {
             ...response,
           };
-          const validateRes = await fetch("http://localhost:7000/order/validate", {
+          await fetch("http://localhost:7000/order/validate", {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
               "Content-Type": "application/json",
             },
           });
-          const jsonRes = await validateRes.json();
         },
 
         prefill: {
@@ -137,7 +136,7 @@ const CartPage = () => {
           color: "#3399cc",
         },
       };
-      var rzp1 = new window.Razorpay(options);
+      let rzp1 = new window.Razorpay(options);
       rzp1.on("payment.failed", function (response) {
         alert(response.error.code);
         alert(response.error.description);
@@ -164,7 +163,7 @@ const CartPage = () => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const userId = user.uid;
-      const response = await axios.post(`http://localhost:7000/api/orderall`, {
+      await axios.post(`http://localhost:7000/api/orderall`, {
         userId: userId,
         quantityArray: quantityArray,
         nameArray: cartItems.map((item) => item.name),
@@ -186,7 +185,7 @@ const CartPage = () => {
 
       const order = await res.json();
 
-      var options = {
+      let options = {
         key: "rzp_test_i3MlNZjHTupCbP",
         amount,
         currency,
@@ -198,14 +197,13 @@ const CartPage = () => {
           const body = {
             ...response,
           };
-          const validateRes = await fetch("http://localhost:7000/order/validate", {
+          await fetch("http://localhost:7000/order/validate", {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
               "Content-Type": "application/json",
             },
           });
-          const jsonRes = await validateRes.json();
         },
 
         prefill: {
@@ -220,7 +218,7 @@ const CartPage = () => {
           color: "#3399cc",
         },
       };
-      var rzp1 = new window.Razorpay(options);
+      let rzp1 = new window.Razorpay(options);
       rzp1.on("payment.failed", function (response) {
         alert(response.error.code);
         alert(response.error.description);
@@ -247,7 +245,7 @@ const CartPage = () => {
         </button>
       </div>
       {cartItems.map((item, index) => (
-        <div className="cart-box">
+        <div className="cart-box" key={item._id}>
           <div className="imgcart-box">
             <img
               className="img-fluid"
@@ -273,22 +271,22 @@ const CartPage = () => {
               Remove
             </button>
           </div>
-          <li key={item._id}>
+          <div>
             <h5>{item.name}</h5>
             <p className="cart-price">
               {"\u20b9"}
               {item.price}
             </p>
-            <label>Qty:</label>
+            <h4>Qty:</h4>
             <input
               type="number"
               min="1"
-              defaultValue="1"
+              value={quantityArray[index]}
               onChange={(e) => updateQuantity(index, e.target.value)}
               className="qty-input"
             ></input>
             <p>{item.description}</p>
-          </li>
+          </div>
         </div>
       ))}
       {totalPrice !== 0 ? (
@@ -297,7 +295,7 @@ const CartPage = () => {
             Total Price:{"\u20b9"}
             {totalPrice}
           </h4>
-          <button className="bg-success text-light " onClick={(e) => buyAll(e)}>
+          <button className="bg-success text-light" onClick={buyAll}>
             Buy All
           </button>
         </div>

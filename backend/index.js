@@ -419,7 +419,7 @@ app.listen(PORT, () => {
   console.log("server is listening on PORT:" + PORT);
 });
 
-app.put("/api/menu/:id", async (req, res) => {
+app.put("/api/menu/edit/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const updatedMenuItem = await Menu.findByIdAndUpdate(
@@ -457,5 +457,26 @@ app.delete("/api/menu/:id", async (req, res) => {
   } catch (error) {
     console.error("Error deleting menu item:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/users", async (req, res) => {
+  try {
+    const users = await Customer.find();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+app.get("/ordersbu", async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const orders = await Order.find({ userId: userId }).exec(); // Execute the query
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch user orders" });
   }
 });
