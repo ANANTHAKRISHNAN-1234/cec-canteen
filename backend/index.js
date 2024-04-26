@@ -15,6 +15,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
 const Razorpay = require("razorpay");
+const path = require("path");
 
 // Middleware
 app.use(cors());
@@ -82,8 +83,8 @@ const storage = multer.diskStorage({
     cb(null, "../src/images/");
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + file.originalname);
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname));
   },
 });
 const upload = multer({ storage: storage });
@@ -419,32 +420,37 @@ app.listen(PORT, () => {
   console.log("server is listening on PORT:" + PORT);
 });
 
-app.put("/api/menu/edit/:id", async (req, res) => {
-  const id = req.params.id;
+
+app.put("/api/menu/:id", upload.single("image"), async (req, res) => {
   try {
-    const updatedMenuItem = await Menu.findByIdAndUpdate(
-      id,
-      {
-        $set: {
-          name: req.body.name,
-          description: req.body.description,
-          price: req.body.price,
-          category: req.body.category,
-          stock: req.body.stock,
-          image: req.body.image,
-        },
-      },
-      { new: true }
-    );
-    if (!updatedMenuItem) {
-      return res.status(404).json({ error: "Menu item not found" });
+    const { id } = req.params;
+    const { name, description, price, category, stock } = req.body;
+    const imagePath = req.file? req.file.path : null;
+
+    // Find the menu item by ID
+    const menuItem = await Menu.findById(id);
+
+    // Update the menu item properties
+    menuItem.name = name;
+    menuItem.description = description;
+    menuItem.price = price;
+    menuItem.category = category;
+    menuItem.stock = stock;
+    if (imagePath) {
+      menuItem.image = imagePath;
     }
-    res.json(updatedMenuItem);
+
+    // Save the updated menu item
+    await menuItem.save();
+
+    res.json({ status: "ok", message: "Menu item updated successfully" });
   } catch (error) {
-    console.error("Error updating menu item:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("Failed to update menu item:", error);
+    res.status(500).json({ status: "error", message: "Failed to update menu item" });
   }
 });
+
+
 
 app.delete("/api/menu/:id", async (req, res) => {
   const id = req.params.id;

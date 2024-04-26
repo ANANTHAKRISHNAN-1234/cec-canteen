@@ -121,19 +121,23 @@ const AdminMenu = () => {
     fetchMenuItems();
   }, []);
 
-  const handleEdit = (itemId) => setEditingItemId(itemId);
+  const handleEdit = (itemId) => {
+    const editedItem = menuItems.find((item) => item._id === itemId);
+    setEditingItemId(itemId);
+    setEditedItem({...editedItem, _id: itemId });
+  };
 
   const handleSave = async (editedData) => {
     console.log("handleSave function called with data:", editedData);
     try {
       console.log("Sending PUT request with data:", editedData);
-      const response = await axios.put(`http://localhost:7000/api/menu/edit/${editedData._id}`, editedData);
+      const response = await axios.put(`http://localhost:7000/api/menu/${editedData._id}`, editedData);
       console.log("Received response:", response.data);
       if (response.data.status === "ok") {
         console.log("Menu item updated successfully");
         const updatedMenuItems = menuItems.map(item => item._id === editedData._id? editedData : item);
         setMenuItems(updatedMenuItems);
-    }
+      }
       setEditingItemId(null);
       setEditedItem({});
     } catch (error) {
@@ -142,7 +146,7 @@ const AdminMenu = () => {
   };
 
   const handleChange = (key, value) => setEditedItem({ ...editedItem, [key]: value });
-  const handleSaveChanges = (item) => handleSave(item);
+  const handleSaveChanges = (item) => handleSave(editedItem);
 
   const handleDelete = async (itemId) => {
     try {
@@ -178,7 +182,7 @@ const AdminMenu = () => {
                   </div>
                 ) : (
                   <div>
-                    <img src={`http://localhost:7000/${menuItem.image}`} alt={menuItem.name} />
+                    <img src={`../images/${menuItem.image}`} alt={menuItem.name} />
                     <p>Name: {menuItem.name}</p>
                     <p>Description: {menuItem.description}</p>
                     <p>Price: {menuItem.price}</p>
