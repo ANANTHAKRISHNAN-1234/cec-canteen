@@ -182,7 +182,7 @@ const AdminMenu = () => {
                   </div>
                 ) : (
                   <div>
-                    <img src={`../images/${menuItem.image}`} alt={menuItem.name} />
+                    <img src={require(`../images/${menuItem.image}`)} alt={menuItem.name} />
                     <p>Name: {menuItem.name}</p>
                     <p>Description: {menuItem.description}</p>
                     <p>Price: {menuItem.price}</p>
