@@ -6,6 +6,7 @@ import "./CartPage.css";
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [quantityArray, setQuantityArray] = useState([]);
+  const [priceArray, setPriceArray] = useState([]);
   // const [idArray, setIdArray] = useState([]);
   // const [nameArray, setNameArray] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -93,6 +94,7 @@ const CartPage = () => {
 
   const removeAllFromCart = async () => {
     try {
+      console.log("hello");
       const user = JSON.parse(localStorage.getItem("user"));
       const userId = user.uid;
       // Remove all items from the cart array in the database
@@ -106,17 +108,29 @@ const CartPage = () => {
       console.error("Error removing all items from cart:", error);
     }
   };
-  const updateQuantity = (itemId, newQuantity) => {
+  const updateQuantity = (itemId, newQuantity, cost) => {
     setQuantityArray((prevQuantityArray) =>
       prevQuantityArray.map((prevQuantity, index) =>
         index === itemId ? parseInt(newQuantity) : prevQuantity
       )
     );
-
-    // let tot = totalPrice;
+    let tot = 0;
+    cartItems.forEach((item, index) => {
+      if (index === itemId) {
+        tot += item.price * newQuantity; // Use newQuantity for the updated item
+      } else {
+        tot += item.price * quantityArray[index]; // Use quantityArray for other items
+      }
+    });
+    console.log(cost);
+    console.log(newQuantity);
+    console.log(quantityArray);
+    console.log(tot);
+    setTotalPrice(tot);
+    console.log(tot);
     // setTotalPrice(tot * newQuantity);
   };
-  const buyNow = async (e, item, index) => {
+  const buyNow = async (e, item, index, cost) => {
     try {
       console.log(quantityArray);
       const user = JSON.parse(localStorage.getItem("user"));
@@ -132,7 +146,7 @@ const CartPage = () => {
       const res = await fetch("http://localhost:7000/order", {
         method: "POST",
         body: JSON.stringify({
-          amount: totalPrice * 100,
+          amount: item.price * quantityArray[index] * 100,
           currency,
           receipt: receiptId,
         }),
@@ -221,6 +235,7 @@ const CartPage = () => {
         idArray: cartItems.map((item) => item._id),
         totalPrice: totalPrice,
       });
+
       console.log(response);
       const res = await fetch("http://localhost:7000/order", {
         method: "POST",
@@ -287,6 +302,7 @@ const CartPage = () => {
       rzp1.open();
       e.preventDefault();
       removeAllFromCart();
+      console.log(cartItems);
       // alert("payment successfull****");
       // Update stock for each selected item
     } catch (error) {
@@ -312,7 +328,7 @@ const CartPage = () => {
             />
             <button
               className="bg-success text-white"
-              onClick={(e) => buyNow(e, item, index)}
+              onClick={(e) => buyNow(e, item, index, item.price)}
             >
               Buy now
             </button>
@@ -341,7 +357,9 @@ const CartPage = () => {
               type="number"
               min="1"
               defaultValue="1"
-              onChange={(e) => updateQuantity(index, e.target.value)}
+              onChange={(e) =>
+                updateQuantity(index, e.target.value, item.price)
+              }
               className="qty-input"
             ></input>
             <p>{item.description}</p>

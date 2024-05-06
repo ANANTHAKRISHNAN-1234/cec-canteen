@@ -22,6 +22,9 @@ import Protected2 from "./Components/Protected2";
 import Anonymous2 from "./Components/AnonymousRoute2";
 import MenuPage from "./Components/MenuPage/MenuPage";
 import CartPage from "./Pages/CartPage";
+import AdminOrder from "./Pages/AdminOrder";
+import Orders from "./Pages/Orders";
+import Users from "./Pages/Users";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -33,6 +36,7 @@ const router = createBrowserRouter(
         <Route path="/" index element={<Home />} />
       </Route>
       <Route path="/about" element={<About />} />
+      <Route path="/orders" element={<Orders />} />
       <Route path="/adminsignup" element={<AdminSignup />} />
       <Route path="/adminlogin" element={<Anonymous2 />}>
         <Route path="/adminlogin" element={<AdminLogin />} />
@@ -43,6 +47,8 @@ const router = createBrowserRouter(
       <Route path="/admin-menu" element={<AdminMenu />} />
       <Route path="/menu" element={<MenuPage />} />
       <Route path="/cart" element={<CartPage />} />
+      <Route path="/adminorders" element={<AdminOrder />} />
+      <Route path="/users" element={<Users />} />
     </Route>
   )
 );

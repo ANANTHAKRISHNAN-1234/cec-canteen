@@ -1,3 +1,4 @@
+const { type } = require("@testing-library/user-event/dist/type");
 const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema(
   {
@@ -20,6 +21,23 @@ const orderSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
+    },
+    confirmation: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    currentDate: {
+      type: String,
+    },
+    currentTime: {
+      type: String,
+    },
+    makingTime: {
+      type: String,
+    },
+    orderDate: {
+      type: Date,
     },
   },
   { collection: "Orders" }

@@ -1,0 +1,11 @@
+.orders {
+  background-color: rgb(49, 47, 47);
+}
+.order-list {
+  margin-bottom: 1rem;
+  padding: 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: rgb(78 69 69);
+}

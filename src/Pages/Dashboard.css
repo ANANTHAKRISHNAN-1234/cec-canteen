@@ -1,0 +1,40 @@
+.admin-home {
+  display: flex;
+  background-color: rgb(238 240 241) !important;
+}
+.admin-home-content {
+  width: 100%;
+  background-color: #edf0f3;
+}
+.admin-home-heading {
+  color: rgb(19, 19, 129);
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+}
+.admin-home-card-container {
+  display: flex;
+  margin-left: 3rem;
+}
+.box1 {
+  margin-right: 8rem !important;
+}
+.admin-home-card {
+  background-color: white;
+  padding: 5px;
+  border-radius: 9px;
+  box-shadow: 16px 16px solid whitesmoke !important;
+  margin-bottom: 2rem;
+}
+.admin-home-card-box {
+  display: flex;
+
+  align-items: center;
+}
+.admin-home-card-box img {
+  height: 7em;
+  width: 9rem;
+  margin-right: 6rem;
+}
+.admin-home-card-box h1 {
+  color: rgb(19, 19, 129);
+}

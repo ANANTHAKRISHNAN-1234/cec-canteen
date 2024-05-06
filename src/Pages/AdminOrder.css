@@ -1,0 +1,28 @@
+.adminorders {
+  display: flex;
+  width: 100%;
+}
+.admin-order-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: rgb(19, 19, 129);
+}
+.admin-order-heading {
+  color: rgb(19, 19, 129);
+}
+.confirm-btn {
+  margin-left: 1rem;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 20px;
+}
+.confirm-btn:hover {
+  cursor: pointer;
+}
+.adminorder-list {
+  background-color: #ebedf0;
+  margin-bottom: 1rem;
+  padding: 2rem;
+}

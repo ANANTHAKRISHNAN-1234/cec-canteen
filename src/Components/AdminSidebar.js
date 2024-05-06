@@ -1,8 +1,19 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./AdminSidebar.css";
 const AdminSidebar = () => {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      console.log("hiihiii");
+      localStorage.removeItem("admintoken");
+      navigate("/adminlogin");
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
-    <div>
+    <div className="sdbar">
       <div className="container-fluid display-table">
         <div className="row display-table-row">
           <div
@@ -20,39 +31,33 @@ const AdminSidebar = () => {
             <div className="navi">
               <ul className="nav-ul">
                 <li className="active">
-                  <a href="/admin-dashboard">
+                  <Link to="/admin-dashboard">
                     <i className="fa fa-home" aria-hidden="true"></i>
                     <span className="hidden-xs hidden-sm">Home</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="/adminorders">
                     <i className="fa fa-tasks" aria-hidden="true"></i>
                     <span className="hidden-xs hidden-sm">Orders</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/admin-menu">
+                  <Link to="/admin-menu">
                     <i className="fa fa-bar-chart" aria-hidden="true"></i>
                     <span className="hidden-xs hidden-sm">Menu</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
-                    <i className="fa fa-user" aria-hidden="true"></i>
-                    <span className="hidden-xs hidden-sm">Calender</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
+                  <Link to="/users">
                     <i className="fa fa-calendar" aria-hidden="true"></i>
                     <span className="hidden-xs hidden-sm">Users</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
-                    <i className="fa fa-cog" aria-hidden="true"></i>
-                    <span className="hidden-xs hidden-sm">Setting</span>
+                  <a href="" onClick={handleLogout}>
+                    <i className="fa fa-sign-out" aria-hidden="true"></i>
+                    <span className="hidden-xs hidden-sm">Logout</span>
                   </a>
                 </li>
               </ul>

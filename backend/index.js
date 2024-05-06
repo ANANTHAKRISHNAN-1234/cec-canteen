@@ -266,6 +266,8 @@ app.post("/api/orderall", async (req, res) => {
   const { userId, quantityArray, nameArray, idArray, totalPrice } = req.body;
   try {
     console.log("hellllllllllllo");
+    console.log("hehehehehehhehehhehe");
+    console.log(quantityArray);
     console.log(nameArray);
     console.log(totalPrice);
     idArray.map(async (itemid, index) => {
@@ -345,4 +347,197 @@ app.post("/order/validate", async (req, res) => {
     orderId: razorpay_order_id,
     paymentId: razorpay_payment_id,
   });
+});
+
+app.get("/adminorders", async (req, res) => {
+  try {
+    const orders = await Order.find();
+    res.json(orders);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+app.post("/getUserByIds", async (req, res) => {
+  try {
+    console.log("helo");
+    const { userIds } = req.body;
+    console.log(userIds);
+    // Find users based on user IDs
+    const users = await Customer.find({ userid: { $in: userIds } });
+    console.log(users);
+    // Create a mapping of user IDs to user names
+    const userMap = {};
+    users.forEach((user) => {
+      userMap[user.userid] = user.username; // Assuming the user document has a 'name' field
+    });
+    console.log(userMap);
+    // Send the mapping as response
+    res.json(userMap);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.put("/adminorders/:orderId/confirm", async (req, res) => {
+  try {
+    console.log("akkkak");
+    console.log(req.params.orderId);
+    const { makeTime } = req.body;
+    const currentDate = new Date();
+    const day = currentDate.getDate(); // Get day (1-31)
+    const month = currentDate.getMonth() + 1; // Get month (0-11) and adjust to start from 1
+    const year = currentDate.getFullYear(); // Get full year
+
+    // Combine day, month, and year into a string
+    const formattedDate = `${day}/${month}/${year}`;
+    const currentTime = currentDate.toLocaleTimeString();
+    const order = await Order.findById(req.params.orderId);
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    order.confirmation = true;
+    order.currentDate = formattedDate;
+    order.currentTime = currentTime;
+    order.makingTime = makeTime;
+    order.orderDate = new Date();
+    await order.save();
+
+    res.json(order);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+app.post("/userorders", async (req, res) => {
+  try {
+    const userid = req.body.userId;
+    console.log(userid);
+    const orders = await Order.find({ userId: userid });
+    res.json(orders);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+app.put("/api/menu/:id", upload.single("image"), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description, price, category, stock } = req.body;
+    const imagePath = req.file ? req.file.path : null;
+
+    // Find the menu item by ID
+    const menuItem = await Menu.findById(id);
+
+    // Update the menu item properties
+    menuItem.name = name;
+    menuItem.description = description;
+    menuItem.price = price;
+    menuItem.category = category;
+    menuItem.stock = stock;
+    if (imagePath) {
+      menuItem.image = imagePath;
+    }
+
+    // Save the updated menu item
+    await menuItem.save();
+
+    res.json({ status: "ok", message: "Menu item updated successfully" });
+  } catch (error) {
+    console.error("Failed to update menu item:", error);
+    res
+      .status(500)
+      .json({ status: "error", message: "Failed to update menu item" });
+  }
+});
+
+app.delete("/api/menu/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const deletedMenuItem = await Menu.findByIdAndDelete(id);
+    if (!deletedMenuItem) {
+      return res.status(404).json({ error: "Menu item not found" });
+    }
+    res.json(deletedMenuItem);
+  } catch (error) {
+    console.error("Error deleting menu item:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/users", async (req, res) => {
+  try {
+    const users = await Customer.find();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+app.get("/ordersbu", async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const orders = await Order.find({ userId: userId }).exec(); // Execute the query
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch user orders" });
+  }
+});
+
+app.get("/adminhome", async (req, res) => {
+  try {
+    let totp = 0;
+    let no_order_month = 0;
+    console.log("helloololool");
+    const orders = await Order.find({ confirmation: true });
+    const pendOrders = await Order.find({ confirmation: false });
+    const users = await Customer.find();
+    console.log(orders);
+
+    orders.forEach((order) => {
+      console.log("hihihihi");
+      console.log(order.currentDate);
+
+      const dateTime = order.currentDate; // Assuming 'currentDate' is the date field in your Order model
+      const parts = dateTime.split(/[/]/);
+      console.log(parts);
+
+      const month = parseInt(parts[1]);
+      console.log("Month is:" + month);
+      const day = parseInt(parts[0]);
+      const year = parseInt(parts[2]);
+      console.log("year is:" + year);
+      const currentdate = new Date();
+      const cur_month = currentdate.getMonth() + 1;
+      console.log(cur_month);
+      const cur_day = currentdate.getDate();
+      const cur_year = currentdate.getFullYear();
+      console.log(cur_year);
+      if (cur_month === month && cur_year === year) {
+        totp += order.price;
+        no_order_month++;
+        console.log("This order is in this month");
+        // Do something with the order
+      } else {
+        console.log("This order is not in this month");
+        // Do something else with the order
+      }
+    });
+    console.log("totp is:" + totp);
+    console.log("order per month is:" + no_order_month);
+    // Send a response if needed
+    res.json({
+      totalProfit: totp,
+      ordrerPerMonth: no_order_month,
+      pendingOrders: pendOrders.length,
+      users: users.length,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
 });

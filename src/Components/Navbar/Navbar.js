@@ -47,7 +47,7 @@ function Navbar() {
                 <div className="nav-link-underline"></div>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-light" href="#">
+                <a className="nav-link text-light" href="/orders">
                   Orders
                 </a>
               </li>
@@ -62,9 +62,9 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item cart-large-item">
-                <a className="nav-link text-light " href="/cart">
+                <Link className="nav-link text-light " to="/cart">
                   <i className="fa-solid fa-cart-shopping cart-large"></i>
-                </a>
+                </Link>
               </li>
               <li className="nav-item logout ">
                 <Link className="nav-link text-light" onClick={handleLogout}>
