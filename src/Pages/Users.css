@@ -2,8 +2,15 @@
 
 .users {
   padding: 20px;
+  display: flex;
 }
-
+.user-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10rem;
+}
 .user-list {
   max-width: 800px;
   margin: 0 auto;
@@ -71,6 +78,9 @@
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
+.vieworder {
+  margin-left: 15rem;
+}
 
 .vieworder:hover,
 .hideorder:hover {
@@ -84,6 +94,7 @@
   border-radius: 5px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 5rem;
 }
 
 .order-item {

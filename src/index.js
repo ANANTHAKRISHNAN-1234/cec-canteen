@@ -35,6 +35,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Protected />}>
         <Route path="/" index element={<Home />} />
       </Route>
+
       <Route path="/about" element={<About />} />
       <Route path="/orders" element={<Orders />} />
       <Route path="/adminsignup" element={<AdminSignup />} />

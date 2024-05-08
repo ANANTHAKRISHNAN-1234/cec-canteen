@@ -43,42 +43,44 @@ const Users = () => {
   return (
     <div className="users">
       <AdminSidebar />
-      <h1 className="text-center">Users</h1>
-      <ul className="user-list">
-        {users.map((user) => (
-          <li key={user._id}>
-            <div className="user-item">
-              <div>
-                <h4 className="user-name">{user.username}</h4>
-                <p className="email">Email: {user.email}</p>
-              </div>
-              {selectedUserId === user._id ? (
-                <div className="user-orders">
-                  {selectedUserOrders.map((order) => (
-                    <div key={order._id} className="order-item">
-                      <h5 className="order-id">Order ID: {order._id}</h5>
-                      <p className="order-total">Total: ${order.total}</p>
-                    </div>
-                  ))}
+      <div className="user-container">
+        <h1 className="text-center">Users</h1>
+        <ul className="user-list">
+          {users.map((user) => (
+            <li key={user._id}>
+              <div className="user-item">
+                <div>
+                  <h4 className="user-name">{user.username}</h4>
+                  <p className="email">Email: {user.email}</p>
+                </div>
+                {selectedUserId === user._id ? (
+                  <div className="user-orders">
+                    {selectedUserOrders.map((order) => (
+                      <div key={order._id} className="order-item">
+                        <h5 className="order-id">Order ID: {order._id}</h5>
+                        <p className="order-total">Total: ${order.total}</p>
+                      </div>
+                    ))}
+                    <button
+                      className="hideorder"
+                      onClick={() => toggleUserOrders(user._id)}
+                    >
+                      Hide Orders
+                    </button>
+                  </div>
+                ) : (
                   <button
-                    className="hideorder"
+                    className="vieworder"
                     onClick={() => toggleUserOrders(user._id)}
                   >
-                    Hide Orders
+                    View Orders
                   </button>
-                </div>
-              ) : (
-                <button
-                  className="vieworder"
-                  onClick={() => toggleUserOrders(user._id)}
-                >
-                  View Orders
-                </button>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
