@@ -12,7 +12,7 @@ const Menu = require("./models/menustruct");
 const Customer = require("./models/customer");
 const Order = require("./models/orders");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const multer = require("multer");
 const { toBeDisabled } = require("@testing-library/jest-dom/matchers");
 const Razorpay = require("razorpay");
@@ -30,7 +30,7 @@ app.listen(PORT, () => {
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
   try {
-    const newPassword = await bcrypt.hash(req.body.password, 10);
+    const newPassword = await bcrypt.hashSync(req.body.password, 10);
     await User.create({
       name: req.body.username,
       email: req.body.email,
@@ -57,7 +57,10 @@ app.post("/api/login", async (req, res) => {
       });
     }
 
-    const isPasswordValid = await bcrypt.compare(adminpassword, user.password);
+    const isPasswordValid = await bcrypt.compareSync(
+      adminpassword,
+      user.password
+    );
 
     if (isPasswordValid) {
       const token = jwt.sign(
