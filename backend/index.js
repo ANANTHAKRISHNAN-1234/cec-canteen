@@ -270,7 +270,7 @@ app.post("/api/orderall", async (req, res) => {
     console.log(quantityArray);
     console.log(nameArray);
     console.log(totalPrice);
-    idArray.map(async (itemid, index) => {
+    const promises = idArray.map(async (itemid, index) => {
       const menuItem = await Menu.findById(itemid);
       if (!menuItem) {
         return res.status(404).json({ error: "Menu item not found" });
@@ -289,6 +289,7 @@ app.post("/api/orderall", async (req, res) => {
       menuItem.stock = newStock;
       await menuItem.save();
     });
+
     const newOrder = new Order({
       userId,
       name: nameArray,
@@ -304,6 +305,7 @@ app.post("/api/orderall", async (req, res) => {
     res.json(savedOrder);
   } catch (error) {
     console.error("Error creating order:", error);
+    return;
     res.status(500).json({ error: "Internal server error" });
   }
 });
