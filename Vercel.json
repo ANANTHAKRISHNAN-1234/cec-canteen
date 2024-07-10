@@ -5,8 +5,25 @@
       "src": "frontend",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "frontend/build"
       }
+    },
+    {
+      "src": "backend",
+      "use": "@vercel/node-build",
+      "config": {
+        "distDir": "backend/build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "frontend/build/*",
+      "dest": "/*"
+    },
+    {
+      "src": "backend/build/*",
+      "dest": "/api/*"
     }
   ]
 }
