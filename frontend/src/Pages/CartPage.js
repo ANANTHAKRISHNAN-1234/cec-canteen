@@ -143,7 +143,7 @@ const CartPage = () => {
         userId: userId,
       });
       console.log(response);
-      const res = await fetch("https://cec-canteen-backend.vercel.app/order", {
+      const res = await fetch("https://cec-canteen-backend.vercel.app/api/order", {
         method: "POST",
         body: JSON.stringify({
           amount: item.price * quantityArray[index] * 100,
@@ -169,7 +169,7 @@ const CartPage = () => {
             ...response,
           };
           const validateRes = await fetch(
-            "https://cec-canteen-backend.vercel.app/order/validate",
+            "https://cec-canteen-backend.vercel.app/api/order/validate",
             {
               method: "POST",
               body: JSON.stringify(body),
@@ -237,7 +237,7 @@ const CartPage = () => {
       });
 
       console.log(response);
-      const res = await fetch("https://cec-canteen-backend.vercel.app/order", {
+      const res = await fetch("https://cec-canteen-backend.vercel.app/api/order", {
         method: "POST",
         body: JSON.stringify({
           amount: totalPrice * 100,
@@ -263,7 +263,7 @@ const CartPage = () => {
             ...response,
           };
           const validateRes = await fetch(
-            "https://cec-canteen-backend.vercel.app/order/validate",
+            "https://cec-canteen-backend.vercel.app/api/order/validate",
             {
               method: "POST",
               body: JSON.stringify(body),
