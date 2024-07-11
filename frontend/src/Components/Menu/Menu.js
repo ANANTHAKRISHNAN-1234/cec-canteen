@@ -15,7 +15,7 @@ const Menu = (props) => {
     const menuId = menu._id;
     console.log(menuId);
     try {
-      const response = await axios.post(`http://localhost:7000/api/cart`, {
+      const response = await axios.post(`https://cec-canteen-frontend.vercel.app/api/cart`, {
         menuId,
         userId,
       });
