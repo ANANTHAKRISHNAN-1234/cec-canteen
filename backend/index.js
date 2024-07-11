@@ -21,6 +21,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+  res.send("Welcome to my canteen app!!");
+});
 app.get("/admin", (req, res) => {
   res.send("hello");
 });
