@@ -333,6 +333,7 @@ app.post("/api/order", async (req, res) => {
     if (!order) {
       return res.status(500).send("Error");
     }
+    res.header("Access-Control-Allow-Origin","https://cec-canteen-frontend.vercel.app");
     res.json(order);
   } catch (err) {
     console.log(uuuuu);
