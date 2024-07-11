@@ -20,7 +20,8 @@ const Razorpay = require("razorpay");
 app.use(cors(
     {
       origin:["https://cec-canteen-backend.vercel.app/"],
-      methods:["POST","GET"],
+      methods:["POST","GET","PUT","DELETE"],
+      headers:['Content-Type''Authorization'],
       credentials:true
     }
 ));
