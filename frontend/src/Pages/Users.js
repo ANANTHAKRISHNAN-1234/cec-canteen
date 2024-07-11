@@ -14,7 +14,7 @@ const Users = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:7000/users");
+      const response = await axios.get("https://cec-canteen-backend.vercel.app/users");
       setUsers(response.data);
     } catch (error) {
       console.error(error);
@@ -23,7 +23,7 @@ const Users = () => {
 
   const fetchUserOrders = async (userId) => {
     try {
-      const url = `http://localhost:7000/ordersbu?userId=${userId}`;
+      const url = `https://cec-canteen-backend.vercel.app/ordersbu?userId=${userId}`;
       const response = await axios.get(url);
       setSelectedUserOrders(response.data);
     } catch (error) {
