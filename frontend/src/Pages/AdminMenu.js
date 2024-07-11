@@ -168,7 +168,7 @@ const AdminMenu = () => {
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const response = await axios.get("http://localhost:7000/api/menu");
+        const response = await axios.get("https://cec-canteen-backend.vercel.app/api/menu");
         setMenuItems(response.data.data);
       } catch (error) {
         console.error("Failed to fetch menu items:", error);
@@ -188,7 +188,7 @@ const AdminMenu = () => {
     try {
       console.log("Sending PUT request with data:", editedData);
       const response = await axios.put(
-        `http://localhost:7000/api/menu/${editedData._id}`,
+        `https://cec-canteen-backend.vercel.app/api/menu/${editedData._id}`,
         editedData
       );
       console.log("Received response:", response.data);
@@ -213,7 +213,7 @@ const AdminMenu = () => {
   const handleDelete = async (itemId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:7000/api/menu/${itemId}`
+        `https://cec-canteen-backend.vercel.app/api/menu/${itemId}`
       );
       if (response.data.status === "ok") {
         console.log("Menu item deleted successfully");
