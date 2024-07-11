@@ -17,7 +17,13 @@ const multer = require("multer");
 const { toBeDisabled } = require("@testing-library/jest-dom/matchers");
 const Razorpay = require("razorpay");
 
-app.use(cors());
+app.use(cors(
+    {
+      origin:["https://cec-canteen-backend.vercel.app/"],
+      methods:["POST","GET"],
+      credentials:true
+    }
+));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
