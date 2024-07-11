@@ -319,7 +319,7 @@ const CartPage = () => {
     <div className="cartbody">
       <div className="classbody-heading">
         <h2>The CART</h2>
-        <button className="bg-danger text-light" onClick={removeAllFromCart}>
+        <button className="bg-danger text-light remv-all" onClick={removeAllFromCart}>
           Remove All
         </button>
       </div>
@@ -377,7 +377,7 @@ const CartPage = () => {
             Total Price:{"\u20b9"}
             {totalPrice}
           </h4>
-          <button className="bg-success text-light " onClick={(e) => buyAll(e)}>
+          <button className="bg-success text-light buy-all " onClick={(e) => buyAll(e)}>
             Buy All
           </button>
         </div>
