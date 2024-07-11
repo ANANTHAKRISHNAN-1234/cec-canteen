@@ -6,7 +6,7 @@ const useMenus = () => {
   useEffect(() => {
     const fetchMenus = async () => {
       try {
-        const response = await axios.get("http://localhost:7000/api/menu");
+        const response = await axios.get("https://cec-canteen-backend.vercel.app/api/menu");
         setMenus(response.data.data);
       } catch (error) {
         console.error("Failed to fetch menus:", error);
