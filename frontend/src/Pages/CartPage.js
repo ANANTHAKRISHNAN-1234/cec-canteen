@@ -25,7 +25,7 @@ const CartPage = () => {
         const userId = user.uid;
         console.log(userId);
         const response = await axios.get(
-          `http://localhost:7000/api/customer/${userId}`
+          `https://cec-canteen-backend.vercel.app/api/customer/${userId}`
         );
         const cart = response.data.cart;
 
@@ -33,7 +33,7 @@ const CartPage = () => {
         const menuItems = await Promise.all(
           cart.map(async (itemId) => {
             const menuResponse = await axios.get(
-              `http://localhost:7000/api/menu/${itemId}`
+              `https://cec-canteen-backend.vercel.app/api/menu/${itemId}`
             );
             return menuResponse.data;
           })
@@ -79,7 +79,7 @@ const CartPage = () => {
       const userId = user.uid;
       // Remove item from the cart array in the database
       await axios.delete(
-        `http://localhost:7000/api/customer/${userId}/cart/${itemId}`
+        `https://cec-canteen-backend.vercel.app/api/customer/${userId}/cart/${itemId}`
       );
       console.log(oldPrice);
       // Update the cartItems state to reflect the removed item
@@ -98,7 +98,7 @@ const CartPage = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       const userId = user.uid;
       // Remove all items from the cart array in the database
-      await axios.delete(`http://localhost:7000/api/customer/${userId}/cart`);
+      await axios.delete(`https://cec-canteen-backend.vercel.app/api/customer/${userId}/cart`);
 
       // Update the cartItems state to reflect the removal of all items
       setCartItems([]);
@@ -135,7 +135,7 @@ const CartPage = () => {
       console.log(quantityArray);
       const user = JSON.parse(localStorage.getItem("user"));
       const userId = user.uid;
-      const response = await axios.post(` http://localhost:7000/api/orders`, {
+      const response = await axios.post(` https://cec-canteen-backend.vercel.app/api/orders`, {
         itemId: item._id,
         name: item.name,
         quantity: quantityArray[index],
@@ -143,7 +143,7 @@ const CartPage = () => {
         userId: userId,
       });
       console.log(response);
-      const res = await fetch("http://localhost:7000/order", {
+      const res = await fetch("https://cec-canteen-backend.vercel.app/order", {
         method: "POST",
         body: JSON.stringify({
           amount: item.price * quantityArray[index] * 100,
@@ -169,7 +169,7 @@ const CartPage = () => {
             ...response,
           };
           const validateRes = await fetch(
-            "http://localhost:7000/order/validate",
+            "https://cec-canteen-backend.vercel.app/order/validate",
             {
               method: "POST",
               body: JSON.stringify(body),
@@ -228,7 +228,7 @@ const CartPage = () => {
       // console.log(totalprice);
       // setTotalPrice(totalprice);
       // console.log(totalPrice);
-      const response = await axios.post(`http://localhost:7000/api/orderall`, {
+      const response = await axios.post(`https://cec-canteen-backend.vercel.app/api/orderall`, {
         userId: userId,
         quantityArray: quantityArray,
         nameArray: cartItems.map((item) => item.name),
@@ -237,7 +237,7 @@ const CartPage = () => {
       });
 
       console.log(response);
-      const res = await fetch("http://localhost:7000/order", {
+      const res = await fetch("https://cec-canteen-backend.vercel.app/order", {
         method: "POST",
         body: JSON.stringify({
           amount: totalPrice * 100,
@@ -263,7 +263,7 @@ const CartPage = () => {
             ...response,
           };
           const validateRes = await fetch(
-            "http://localhost:7000/order/validate",
+            "https://cec-canteen-backend.vercel.app/order/validate",
             {
               method: "POST",
               body: JSON.stringify(body),
