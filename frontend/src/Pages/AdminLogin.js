@@ -11,7 +11,7 @@ export default function AdminLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:7000/api/login", {
+      const response = await axios.post("https://cec-canteen-backend.vercel.app/api/login", {
         adminemail,
         adminpassword,
       });
