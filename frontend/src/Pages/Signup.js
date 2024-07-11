@@ -31,7 +31,7 @@ const Signup = () => {
       console.log(username);
       console.log(axios);
       const response = await axios.post(
-        "http://localhost:7000/api/signup",
+        "https://cec-canteen-backend.vercel.app/api/signup",
         {
           uid,
           email,
