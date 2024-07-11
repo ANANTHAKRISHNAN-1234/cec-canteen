@@ -54,7 +54,7 @@ const AddFoodModal = ({ onSave }) => {
       formData.append("image", image);
 
       const response = await axios.post(
-        "http://localhost:7000/api/menu",
+        "https://cec-canteen-backend.vercel.app/api/menu",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
