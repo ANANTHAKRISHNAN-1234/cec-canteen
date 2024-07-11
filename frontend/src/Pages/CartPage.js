@@ -143,16 +143,18 @@ const CartPage = () => {
         userId: userId,
       });
       console.log(response);
-      const res = await axios.post("https://cec-canteen-backend.vercel.app/order", {
+      const res = await fetch("https://cec-canteen-backend.vercel.app/order", {
+        method: "POST",
+        body: JSON.stringify({
           amount: item.price * quantityArray[index] * 100,
           currency,
           receipt: receiptId,
-        },{
+        }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const order = await res.data;
+      const order = await res.json();
       console.log(order);
       var options = {
         key: "rzp_test_i3MlNZjHTupCbP", // Enter the Key ID generated from the Dashboard
@@ -161,21 +163,22 @@ const CartPage = () => {
         name: "Acme Corp", //your business name
         description: "Test Transaction",
         image: "https://example.com/your_logo",
-        order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        order_id: order.id, //This is a sample Order ID. Pass the id obtained in the response of Step 1
         handler: async function (response) {
           const body = {
             ...response,
           };
-          const validateRes = await axios.post(
-            "https://cec-canteen-backend.vercel.app/order/validate", 
-              body,
-             {
+          const validateRes = await fetch(
+            "https://cec-canteen-backend.vercel.app/order/validate",
+            {
+              method: "POST",
+              body: JSON.stringify(body),
               headers: {
                 "Content-Type": "application/json",
               },
             }
           );
-          const jsonRes = await validateRes.data;
+          const jsonRes = await validateRes.json();
           console.log(jsonRes);
         },
 
@@ -206,11 +209,11 @@ const CartPage = () => {
       e.preventDefault();
 
       removeFromCart(item._id, item.price * quantityArray[index], index);
-      // alert("payment successfull****");
+      // alert("payment successfull**");
     } catch (error) {
       if (error.response && error.response.status === 400) {
         alert(
-          `Cannot buy ${quantityArray[index]} ${item.name}. Out of Stock!!!`
+          Cannot buy ${quantityArray[index]} ${item.name}. Out of Stock!!!
         );
       } else {
         console.error("Error buying item:", error);
