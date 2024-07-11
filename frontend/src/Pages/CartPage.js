@@ -143,18 +143,16 @@ const CartPage = () => {
         userId: userId,
       });
       console.log(response);
-      const res = await fetch("https://cec-canteen-backend.vercel.app/order", {
-        method: "POST",
-        body: JSON.stringify({
+      const res = await axios.post("https://cec-canteen-backend.vercel.app/order", {
           amount: item.price * quantityArray[index] * 100,
           currency,
           receipt: receiptId,
-        }),
+        },{
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const order = await res.json();
+      const order = await res.data;
       console.log(order);
       var options = {
         key: "rzp_test_i3MlNZjHTupCbP", // Enter the Key ID generated from the Dashboard
@@ -168,17 +166,16 @@ const CartPage = () => {
           const body = {
             ...response,
           };
-          const validateRes = await fetch(
-            "https://cec-canteen-backend.vercel.app/order/validate",
-            {
-              method: "POST",
-              body: JSON.stringify(body),
+          const validateRes = await axios.post(
+            "https://cec-canteen-backend.vercel.app/order/validate", 
+              body,
+             {
               headers: {
                 "Content-Type": "application/json",
               },
             }
           );
-          const jsonRes = await validateRes.json();
+          const jsonRes = await validateRes.data;
           console.log(jsonRes);
         },
 
