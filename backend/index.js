@@ -317,6 +317,7 @@ app.post("/api/orderall", async (req, res) => {
 });
 app.post("/order", async (req, res) => {
   try {
+    console.log("Iam in /order");
     console.log(process.env.Razorpay_KEY_ID);
     console.log(process.env.Razorpay_SECRET);
     const razorpay = new Razorpay({
@@ -334,11 +335,13 @@ app.post("/order", async (req, res) => {
     }
     res.json(order);
   } catch (err) {
+    console.log(uuuuu);
     console.log(err);
     res.status(500).send("Error");
   }
 });
 app.post("/order/validate", async (req, res) => {
+  console.log("Hi akkk");
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
 
