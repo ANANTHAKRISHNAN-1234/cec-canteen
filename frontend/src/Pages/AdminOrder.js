@@ -8,7 +8,7 @@ const AdminOrder = () => {
   const [timetaken, setTimeTaken] = useState("1 min");
   useEffect(() => {
     axios
-      .get("http://localhost:7000/adminorders")
+      .get("https://cec-canteen-backend.vercel.app/adminorders")
       .then((res) => {
         setOrders(res.data.reverse());
         fetchUsers(res.data);
@@ -20,7 +20,7 @@ const AdminOrder = () => {
   const fetchUsers = (orders) => {
     const userIds = orders.map((order) => order.userId);
     axios
-      .post("http://localhost:7000/getUserByIds", { userIds }) // Adjust this endpoint based on your server route
+      .post("https://cec-canteen-backend.vercel.app/getUserByIds", { userIds }) // Adjust this endpoint based on your server route
       .then((res) => {
         console.log(res);
         setUsers(res.data);
@@ -32,7 +32,7 @@ const AdminOrder = () => {
   };
   const confirmOrder = (orderId) => {
     axios
-      .put(`http://localhost:7000/adminorders/${orderId}/confirm`, {
+      .put(`https://cec-canteen-backend.vercel.app/adminorders/${orderId}/confirm`, {
         makeTime: timetaken,
       })
       .then((res) => {
