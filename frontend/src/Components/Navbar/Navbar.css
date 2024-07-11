@@ -1,126 +1,126 @@
-.navbar{
-    background-color: red;
-    font-size: 1.5rem;
-    font-family:"Ubuntu", sans-serif;
-    font-weight: bold;
-    box-sizing: border-box;
+.navbar {
+  background-color: red;
+  font-size: 1.5rem;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: bold;
+  box-sizing: border-box;
 }
-.nav-container{
-    background:linear-gradient(180deg, #333333, #000000); 
+.nav-container {
+  background: linear-gradient(180deg, #333333, #000000);
 }
-.navbar-toggler{
-    border: 2px solid white;
+.navbar-toggler {
+  border: 2px solid white;
 }
-.navbar-item-color{
-    color: #1f82e5;
+.navbar-item-color {
+  color: #1f82e5;
 }
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
-.canteen-logo{
-    max-width: 13rem;
+.canteen-logo {
+  max-width: 13rem;
 }
 .nav-item {
-    position: relative;
+  position: relative;
+}
+
+.nav-item .nav-link {
+  position: relative;
+  color: white;
+  text-decoration: none !important;
+}
+
+.nav-item .nav-link:hover {
+  text-decoration: none !important;
+}
+.cart-mobile {
+  color: #ffd43b;
+  font-size: 2.5rem;
+  display: none;
+}
+.cart-large {
+  color: #ffd43b;
+  font-size: 2.5rem;
+  margin-left: 8rem;
+}
+
+.nav-item:not(.logout):not(.cart-large-item) .nav-link:hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 2px; /* Adjust the distance from the text */
+  width: 100%;
+  height: 3px; /* Adjust the thickness of the underline */
+  background-color: white;
+  transition: 0.9s ease-in-out; /* Change the color of the underline */
+}
+.logout {
+  margin-top: 5px;
+  font-size: 1rem;
+  margin-left: 4rem;
+}
+.logout a {
+  border: 2px solid whitesmoke;
+  background-color: rgba(67, 53, 53, 0.4);
+  border-radius: 10px;
+}
+@media (min-width: 1044px) {
+  .logout {
+    margin-left: 2rem;
   }
-  
-  .nav-item .nav-link {
-    position: relative;
-    color: white; 
-    text-decoration: none !important; 
+  .cart-large-item {
+    margin-left: 7rem;
   }
-  
-  .nav-item .nav-link:hover {
-    text-decoration: none !important;
+
+  .logout a:hover {
+    background-color: rgba(210, 196, 196, 0.5);
   }
-  .cart-mobile{
-    color: #FFD43B;
-    font-size: 2.5rem;
+}
+@media (min-width: 992px) and (max-width: 1044px) {
+  .logout {
+    margin-left: 4rem;
+  }
+  .logout a:hover {
+    background-color: rgba(210, 196, 196, 0.5);
+  }
+}
+@media (max-width: 991px) {
+  .cart-large {
+    margin-left: 0;
     display: none;
   }
-  .cart-large{
-    color: #FFD43B;
-    font-size: 2.5rem;
-    margin-left: 8rem;
+  .logout {
+    margin-left: 0;
+    font-size: 1.5rem;
+    background-color: rgba(20, 18, 18, 0.5);
   }
-  
-  .nav-item:not(.logout):not(.cart-large-item) .nav-link:hover::after {
-    content: '';
+  .logout a {
+    border: none;
+    width: auto;
+  }
+  .nav-item .nav-link:hover {
+    transform: scale(1.1);
+  }
+  .nav-item .nav-link {
+    margin-left: 2.3rem;
+  }
+  .nav-item:not(.logout) .nav-link:hover::after {
+    content: none;
     position: absolute;
     left: 0;
     bottom: 2px; /* Adjust the distance from the text */
-    width: 100%;
-    height: 3px; /* Adjust the thickness of the underline */
-    background-color: white;
+    width: 0;
+    height: 0; /* Adjust the thickness of the underline */
+    background-color: black;
     transition: 0.9s ease-in-out; /* Change the color of the underline */
   }
-  .logout{
-    margin-top:5px;
-    font-size: 1rem;
-    margin-left: 4rem;
+  .cart-mobile {
+    display: block;
+    margin-left: 0rem;
+    font-size: 2.1rem;
+    cursor: pointer;
   }
-  .logout a{
-    border: 2px solid whitesmoke;
-    background-color: rgba(67, 53, 53,0.4);
-    border-radius: 10px;
-}
-@media(min-width:1044px){
-    .logout{
-        margin-left: 2rem;
-    }
-    .cart-large-item{
-        margin-left: 7rem;
-    }
-    
-    .logout a:hover{
-        background-color:rgba(210, 196, 196, 0.5);
-    }
-}
-@media(min-width:992px) and (max-width:1044px){
-    .logout{
-        margin-left: 4rem;
-    }
-    .logout a:hover{
-        background-color:rgba(210, 196, 196, 0.5);
-    }
-}
-@media(max-width:991px){
-    .cart-large{
-        margin-left: 0;
-        display: none;
-    }
-    .logout{
-        margin-left: 0;
-        font-size: 1.5rem;
-        background-color: rgba(20, 18, 18,0.5);
-    }
-    .logout a{
-        border: none;
-        width: auto;
-    }
-    .nav-item .nav-link:hover{
-        transform: scale(1.1);
-    }
-    .nav-item .nav-link{
-        margin-left: 2.3rem;
-    }
-    .nav-item:not(.logout) .nav-link:hover::after {
-        content: none;
-        position: absolute;
-        left: 0;
-        bottom: 2px; /* Adjust the distance from the text */
-        width: 0;
-        height: 0; /* Adjust the thickness of the underline */
-        background-color: black;
-        transition: 0.9s ease-in-out; /* Change the color of the underline */
-      }
-      .cart-mobile{
-        display: block;
-        margin-left: 0rem;
-        font-size: 2.1rem;
-      }
-      .navbar-collapse > .nav-item > .nav-link:hover::after {
-        content: none !important;
-    }
-     
+  .navbar-collapse > .nav-item > .nav-link:hover::after {
+    content: none !important;
+  }
 }
