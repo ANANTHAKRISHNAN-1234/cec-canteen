@@ -22,7 +22,11 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg  bg-body-tertiary p-0 fixed-top">
         <div className="container-fluid nav-container">
           <img className="canteen-logo" src={logo} alt="Logo" />
-          <i className="fa-solid fa-cart-shopping cart-mobile"></i>
+          <li className="nav-item cart-large-item">
+            <a className="nav-link text-light " href="/cart">
+              <i className="fa-solid fa-cart-shopping cart-mobile"></i>
+            </a>
+          </li>
           <button
             className="navbar-toggler  "
             type="button"
@@ -62,9 +66,9 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item cart-large-item">
-                <Link className="nav-link text-light " to="/cart">
+                <a className="nav-link text-light " href="/cart">
                   <i className="fa-solid fa-cart-shopping cart-large"></i>
-                </Link>
+                </a>
               </li>
               <li className="nav-item logout ">
                 <Link className="nav-link text-light" onClick={handleLogout}>
