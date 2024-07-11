@@ -9,7 +9,7 @@ const Orders = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
     const userId = userData.uid;
     axios
-      .post("http://localhost:7000/userorders", {
+      .post("https://cec-canteen-backend.vercel.app/userorders", {
         userId: userId,
       })
       .then((res) => {
