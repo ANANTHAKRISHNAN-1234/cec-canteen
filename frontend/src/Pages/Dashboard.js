@@ -16,7 +16,7 @@ const Dashboard = () => {
   });
   useEffect(() => {
     axios
-      .get("http://localhost:7000/adminhome")
+      .get("https://cec-canteen-backend.vercel.app/adminhome")
       .then((res) => {
         console.log(res.data);
         setOrdersData(res.data);
