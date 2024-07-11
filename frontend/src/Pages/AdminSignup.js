@@ -14,7 +14,7 @@ const AdminSignup = () => {
     try {
       console.log(axios);
       const response = await axios.post(
-        "http://localhost:7000/api/register",
+        "https://cec-canteen-backend.vercel.app/api/register",
         {
           username,
           email,
