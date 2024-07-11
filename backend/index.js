@@ -321,8 +321,8 @@ app.post("/api/order", async (req, res) => {
     console.log(process.env.Razorpay_KEY_ID);
     console.log(process.env.Razorpay_SECRET);
     const razorpay = new Razorpay({
-      key_id: process.env.Razorpay_KEY_ID,
-      key_secret: process.env.Razorpay_SECRET,
+      key_id:"rzp_test_i3MlNZjHTupCbP" ,
+      key_secret: "s9Tx4fV10XxMqdG9KvunS5aP",
     });
     console.log("hellll");
     const options = req.body;
