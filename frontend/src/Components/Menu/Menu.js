@@ -31,7 +31,7 @@ const Menu = (props) => {
   return (
     <div className="col-sm-6 col-lg-4 text-center mx-auto">
       {menu ? ( // Ensure menu data is available before rendering
-        <div className="menu-box">
+        <div className="menu-box"onClick={handleAddtoCart}>
           <div className="img-box">
             <img
               className="img-fluid"
