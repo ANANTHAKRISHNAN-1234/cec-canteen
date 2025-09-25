@@ -7,6 +7,7 @@ export default function About() {
     <div>
         <Navbar/>
         <Aboutus/>
+        <Aboutus/>
         <AboutusFeature/>
     </div>
   )
