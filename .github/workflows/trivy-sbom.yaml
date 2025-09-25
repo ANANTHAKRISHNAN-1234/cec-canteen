@@ -1,0 +1,25 @@
+name: Trivy SBOM Scan
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  trivy-sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Generate SBOM with Trivy
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          scan-type: fs
+          format: cyclonedx
+          output: trivy-sbom.json
+
+      - name: Upload SBOM results
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-sbom-report
+          path: trivy-sbom.json
