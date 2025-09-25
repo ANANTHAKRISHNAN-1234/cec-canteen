@@ -1,0 +1,25 @@
+name: Trivy SCA Scan
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  trivy-sca:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run Trivy SCA (dependencies)
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          scan-type: fs
+          format: json
+          output: trivy-sca-report.json
+
+      - name: Upload Trivy SCA results
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-sca-report
+          path: trivy-sca-report.json
