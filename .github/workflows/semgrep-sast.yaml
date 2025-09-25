@@ -1,0 +1,23 @@
+name: Semgrep SAST Scan
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  semgrep-sast:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep SAST
+        run: |
+          pip install semgrep
+          semgrep --config=auto --json > semgrep-report.json
+
+      - name: Upload Semgrep results
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-sast-report
+          path: semgrep-report.json
